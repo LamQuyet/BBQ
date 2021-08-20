@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LamQuyet/BBQ.git"
+  },
+  "author": "quyetdaika",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LamQuyet/BBQ/issues"
+  },
+  "homepage": "https://github.com/LamQuyet/BBQ#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
