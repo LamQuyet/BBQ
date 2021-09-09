@@ -1,10 +1,10 @@
-interface Data {
+interface Category {
     key: string,
     title: string,
     image: string
 }
 
-var Trending: Data[] = [
+var category: Category[] = [
     {
         key: '1',
         title: 'Lẩu',
@@ -22,4 +22,4 @@ var Trending: Data[] = [
     },
 
 ];
-export default Trending;
+export default category;

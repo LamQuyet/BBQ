@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
 
     },
     Footer: {
-        flex: 1,
+        flex: .7,
         backgroundColor: 'orange',
         flexDirection: 'row',
         justifyContent: 'space-between',
