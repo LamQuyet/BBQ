@@ -1,14 +1,51 @@
 import React from "react";
-import { View, Text, StyleSheet } from 'react-native'
-import ListFood from "./screens/Food";
+import { View, Text, StyleSheet, Image } from 'react-native'
+import ListFood from "./screens/Sale";
 import Home from "./screens/HomeScreen";
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Cart from "./screens/Cart";
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
+
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Home></Home>
-    </View>
-  )
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName='Home'
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName: string = "";
+
+            if (route.name === 'Home') {
+              iconName = 'home'
+            }
+            if (route.name === 'Sale') {
+              iconName = 'tags'
+            }
+            if (route.name === 'Cart') {
+              iconName = 'shopping-cart'
+            }
+            if (route.name === 'Account') {
+              iconName = 'user-alt'
+            }
+
+            // You can return any component that you like here!
+            return <Icon name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}
+      >
+        <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Tab.Screen name="Sale" component={ListFood} options={{ headerShown: false }} />
+        <Tab.Screen name="Cart" component={Cart} options={{ headerShown: false }} />
+        <Tab.Screen name="Account" component={Cart} options={{ headerShown: false }} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }
 export default App;
 

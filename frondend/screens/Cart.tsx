@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ListFood = () => {
     return (
@@ -11,6 +12,7 @@ const ListFood = () => {
             </View>
             <View style={styles.body}>
                 <Text>Body</Text>
+                <Icon name="rocket" size={30} color="#900" />
             </View>
             <View style={styles.footer}>
                 <View >
