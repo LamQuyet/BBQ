@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from 'react-native'
-import ListFood from "./screens/Sale";
+import Sale from "./screens/Sale";
 import Home from "./screens/HomeScreen";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -35,12 +35,12 @@ const App = () => {
             // You can return any component that you like here!
             return <Icon name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
+          tabBarActiveTintColor: 'orange',
           tabBarInactiveTintColor: 'gray',
         })}
       >
         <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <Tab.Screen name="Sale" component={ListFood} options={{ headerShown: false }} />
+        <Tab.Screen name="Sale" component={Sale} options={{ headerShown: false }} />
         <Tab.Screen name="Cart" component={Cart} options={{ headerShown: false }} />
         <Tab.Screen name="Account" component={Cart} options={{ headerShown: false }} />
       </Tab.Navigator>

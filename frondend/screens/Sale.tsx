@@ -13,7 +13,7 @@ interface Sale {
     OldCost: String,
     NewCost: String
 }
-const Home = () => {
+const Sale = () => {
     const [sale, setSale] = useState([])
 
     useEffect(() => {
@@ -105,7 +105,7 @@ const Home = () => {
         </View>
     )
 }
-export default Home;
+export default Sale;
 
 const styles = StyleSheet.create({
     container: {
@@ -116,15 +116,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange'
     },
     Body: {
-        flex: 9,
+        flex: 7,
 
-    },
-    Footer: {
-        flex: .7,
-        backgroundColor: 'orange',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
     },
     searchbar: {
         alignItems: 'center'
