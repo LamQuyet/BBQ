@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, View, Animated } from 'react-native'
 import Search from '../components/Searchbar';
 import category from '../data/category';
 import newDish from '../data/New';
 import axios from 'axios'
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Carousel from 'react-native-banner-carousel';
+
+const BannerWidth = Dimensions.get('window').width;
+const BannerHeight = 260;
+
+const images = [
+    "https://canhcoupon.com/images/khuyen-mai/2017/07/kingbbq-buffet-adayroi-com-banner.jpg",
+    "https://canhcoupon.com/images/khuyen-mai/2017/08/buffet-nuong-lau-season-bbq-mien-phi-pepsi-khong-gioi-han-adayroi-banner.jpg",
+    "https://luxuryfoods.vn/wp-content/uploads/2019/11/BANNER.jpg",
+    "https://i.pinimg.com/originals/05/8e/71/058e7126b52f8e13dbfc0ef2c3c3cef9.jpg",
+    "https://www.tiendauroi.com/wp-content/uploads/2020/02/header.jpg",
+    "https://useful.vn/wp-content/uploads/1560309883363_3371520.jpg",
+
+];
 
 interface Sale {
     _id: Object,
@@ -13,6 +28,14 @@ interface Sale {
     OldCost: String,
     NewCost: String
 }
+interface PageIndicatorConfig {
+    pageNum: number;
+    childrenNum: number;
+    loop: boolean;
+    scrollValue: Animated.Value;
+}
+
+
 const Sale = () => {
     const [sale, setSale] = useState([])
 
@@ -28,15 +51,26 @@ const Sale = () => {
     }, [])
 
     let saleData: Sale[] = sale;
+
+    const renderBanner = (image: any, index: number) => {
+        return (
+            <View key={index}>
+                <Image style={{ width: BannerWidth, height: BannerHeight }} source={{ uri: image }} />
+            </View>
+        );
+    }
     return (
         <View style={styles.container}>
             <View style={styles.Top}>
-                <ImageBackground source={require('../images/banner.jpg')}
-                    style={{ width: '100%', height: '100%' }}>
-                    <View style={styles.searchbar}>
-                        <Search></Search>
-                    </View>
-                </ImageBackground>
+                <Carousel
+                    autoplay
+                    autoplayTimeout={5000}
+                    loop
+                    index={0}
+                    pageSize={BannerWidth}
+                >
+                    {images.map((image, index) => renderBanner(image, index))}
+                </Carousel>
             </View>
             <View style={styles.Body}>
                 <ScrollView>
@@ -58,10 +92,11 @@ const Sale = () => {
                                         <View style={styles.sale}>
                                             <Text style={{ color: 'white', fontWeight: '700' }}>{item.Sale}</Text>
                                         </View>
-                                        <View>
+                                        <View style={{ alignItems: 'center' }}>
                                             <Text style={{ fontWeight: '700', marginTop: 5 }}> {item.Name}</Text>
                                             <Text style={{ color: '#666', fontStyle: 'italic', textDecorationLine: 'line-through' }}>{item.OldCost}</Text>
                                             <Text>{item.NewCost}</Text>
+                                            <Icon name='cart-plus' size={24} color='orange'></Icon>
                                         </View>
                                     </View>
                                 )
@@ -81,9 +116,10 @@ const Sale = () => {
                                     <View style={{ marginLeft: 10, alignItems: 'center', marginTop: 5, marginRight: 10 }}>
                                         <Image source={{ uri: `${item.image}` }}
                                             style={{ width: 120, height: 220, borderRadius: 10 }}></Image>
-                                        <View>
+                                        <View style={{ alignItems: 'center' }}>
                                             <Text style={{ fontWeight: '700', marginTop: 5 }}> {item.title}</Text>
                                             <Text>{item.Cost}</Text>
+                                            <Icon name='cart-plus' size={24} color='orange'></Icon>
                                         </View>
                                     </View>
                                 )
