@@ -5,6 +5,7 @@ import category from '../data/category';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import * as axiosGetData from '../data/axiosGetData'
 import axios from 'axios'
+import SearchComponent from '../screens/Search'
 
 interface Food {
     _id: Object,
@@ -13,7 +14,7 @@ interface Food {
     Category: String,
     Image: String,
 }
-const Home = () => {
+const Home = ({ navigation }: any) => {
     const [count, setCount] = useState(0)
     const [food, setFood] = useState([])
     const [select, setSelect] = useState(1)
@@ -49,12 +50,14 @@ const Home = () => {
                 <ImageBackground source={require('../images/banner/banner8.jpg')}
                     style={{ width: '100%', height: '100%' }} imageStyle={{ borderBottomRightRadius: 70 }}>
                     <View style={{ position: 'absolute', right: 15, top: 10 }}>
-                        <TouchableOpacity >
+                        <TouchableOpacity onPress={() => { navigation.navigate("Search") }}>
                             <Icon name='search' size={27} color='orange'></Icon>
                         </TouchableOpacity>
                     </View>
                     <View style={{ position: 'absolute', left: 15, top: 10 }}>
-                        <Icon name='bars' size={27} color='orange'></Icon>
+                        <TouchableOpacity>
+                            <Icon name='bars' size={27} color='orange'></Icon>
+                        </TouchableOpacity>
                     </View>
                     <View style={{ paddingTop: 100, paddingLeft: 30 }}>
                         <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white' }}>Hi Quyet</Text>

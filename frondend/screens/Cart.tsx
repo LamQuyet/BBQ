@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ListFood = () => {
+const Cart = () => {
     return (
         <View style={styles.contrainer}>
             <View style={styles.baner}>
@@ -27,7 +27,7 @@ const ListFood = () => {
         </View>
     )
 }
-export default ListFood;
+export default Cart;
 
 const styles = StyleSheet.create({
     contrainer: {

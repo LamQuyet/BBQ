@@ -5,7 +5,7 @@ import category from '../data/category';
 import newDish from '../data/New';
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Carousel from 'react-native-banner-carousel';
+import Swiper from 'react-native-swiper'
 
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = 210;
@@ -16,7 +16,7 @@ const BannerImages = [
     "https://luxuryfoods.vn/wp-content/uploads/2019/11/BANNER.jpg",
     "https://i.pinimg.com/originals/05/8e/71/058e7126b52f8e13dbfc0ef2c3c3cef9.jpg",
     "https://www.tiendauroi.com/wp-content/uploads/2020/02/header.jpg",
-    "https://useful.vn/wp-content/uploads/1560309883363_3371520.jpg",
+    "https://useful.vn/wp-content/uploads/1560309883363_3371520.jpg"
 
 ];
 
@@ -38,7 +38,6 @@ interface PageIndicatorConfig {
 
 const Sale = () => {
     const [sale, setSale] = useState([])
-    const [active, setActive] = useState(0)
 
     useEffect(() => {
         axios({
@@ -53,25 +52,12 @@ const Sale = () => {
 
     let saleData: Sale[] = sale;
 
-    let ActiveChange = ({ nativeEvent }: any) => {
-        const slide = Math.ceil(
-            nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
-
-        );
-        if (slide !== active) {
-            setActive(slide);
-        }
-
-    }
-
     return (
         <View style={styles.container}>
             <View style={styles.Top}>
-                <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    pagingEnabled
-                    onScroll={ActiveChange}
+                <Swiper
+                    autoplay
+                    loop
                 >
                     {
                         BannerImages.map((item, index) => (
@@ -84,18 +70,7 @@ const Sale = () => {
                             </Image>
                         ))
                     }
-                </ScrollView>
-                <View style={{ position: 'absolute', bottom: 13, alignSelf: 'center', flexDirection: 'row' }}>
-                    {
-                        BannerImages.map((i, k) => (
-                            <Text
-                                key={k}
-                                style={{ marginLeft: 10, color: k == active ? 'white' : '#888' }}
-                            >●
-                            </Text>
-                        ))
-                    }
-                </View>
+                </Swiper>
             </View>
             <View style={styles.Body}>
                 <ScrollView>
