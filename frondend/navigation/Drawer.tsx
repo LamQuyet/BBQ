@@ -7,7 +7,10 @@ const Drawer = createDrawerNavigator();
 
 const DrawerTab = () => {
     return (
-        <Drawer.Navigator initialRouteName='Tab'>
+        <Drawer.Navigator
+            initialRouteName='Tab'
+            screenOptions={{ headerShown: false }}
+        >
             <Drawer.Screen name="Tab" component={BottomTab} />
             {/* <Drawer.Screen name="Article" component={Cart} /> */}
         </Drawer.Navigator>

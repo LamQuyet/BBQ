@@ -1,9 +1,18 @@
 const Food = require('../models/Food')
+var searchdata;
 
 class FoodController {
-    //GET All
-    getAll(req, res) {
-        Food.find({}, function (err, data) {
+
+    getSearch(req, res) {
+        console.log(req.body);
+        searchdata = req.body.search
+        console.log(searchdata)
+    }
+
+    //Search
+    Search(req, res) {
+        Food.find({ "Name": { '$regex': searchdata } }, function (err, data) {
+            console.log(searchdata)
             if (!err) {
                 res.json(data)
             } else {
@@ -11,6 +20,7 @@ class FoodController {
             }
         })
     }
+
 
     //GET BBQ
     getBBQ(req, res) {

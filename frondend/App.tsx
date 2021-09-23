@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler'
-// import Animated from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import React from "react";
 import { View, Text, StyleSheet, Image } from 'react-native'
 import Sale from "./screens/Sale";
@@ -19,7 +19,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 const App = () => {
   return (
     <NavigationContainer>
-      <BottomTab></BottomTab>
+      <DrawerTab></DrawerTab>
     </NavigationContainer>
   );
 }

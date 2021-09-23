@@ -28,16 +28,19 @@ interface Sale {
     OldCost: String,
     NewCost: String
 }
-interface PageIndicatorConfig {
-    pageNum: number;
-    childrenNum: number;
-    loop: boolean;
-    scrollValue: Animated.Value;
+
+interface Food {
+    _id: Object,
+    Name: String,
+    Cost: String,
+    Category: String,
+    Image: String,
 }
 
 
 const Sale = () => {
-    const [sale, setSale] = useState([])
+    const [sale, setSale] = useState([]);
+    const [newFood, setNewFood] = useState([])
 
     useEffect(() => {
         axios({
@@ -50,7 +53,21 @@ const Sale = () => {
 
     }, [])
 
+    // useEffect(() => {
+    //     axios({
+    //         method: 'GET',
+    //         url: 'http://10.0.2.2:3000/food/getAllFood',
+    //         data: null
+    //     })
+    //         .then((res) => { setSale(res.data) })
+    //         .catch(err => { console.log(err) })
+
+    // }, [])
+
     let saleData: Sale[] = sale;
+    let newfood: Food[] = newFood;
+
+    newFood.reverse();
 
     return (
         <View style={styles.container}>
@@ -110,6 +127,7 @@ const Sale = () => {
                             showsHorizontalScrollIndicator={false}
                             data={newDish}
                             renderItem={({ item }) => {
+                                { console.log(newfood) }
                                 return (
                                     <View style={{ marginLeft: 10, alignItems: 'center', marginTop: 5, marginRight: 10 }}>
                                         <Image source={{ uri: `${item.image}` }}

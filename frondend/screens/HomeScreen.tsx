@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import * as axiosGetData from '../data/axiosGetData'
 import axios from 'axios'
 import SearchComponent from '../screens/Search'
+import { DrawerActions } from '@react-navigation/native';
 
 interface Food {
     _id: Object,
@@ -32,17 +33,6 @@ const Home = ({ navigation }: any) => {
 
     }, [select])
 
-    // useEffect(() => {
-    //     axios({
-    //         method: 'GET',
-    //         url: 'http://10.0.2.2:3000/food/getHotpot',
-    //         data: null
-    //     })
-    //         .then((res) => { setFood(res.data), console.log('res.data', res.data) })
-    //         .catch(err => { console.log(err) })
-
-    // }, [])
-
     let Food: Food[] = food;
     return (
         <View style={styles.container}>
@@ -55,7 +45,7 @@ const Home = ({ navigation }: any) => {
                         </TouchableOpacity>
                     </View>
                     <View style={{ position: 'absolute', left: 15, top: 10 }}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => { navigation.dispatch(DrawerActions.openDrawer()); }}>
                             <Icon name='bars' size={27} color='orange'></Icon>
                         </TouchableOpacity>
                     </View>
@@ -102,26 +92,7 @@ const Home = ({ navigation }: any) => {
                                             <Text style={{ color: 'black', fontWeight: '700', fontSize: 16 }}>{item.Name}</Text>
                                             <Text>{item.Cost}</Text>
                                         </View>
-                                        <View style={{ flexDirection: 'row', marginLeft: 50 }}>
-                                            <View>
-                                                <TouchableOpacity onPress={() => {
-                                                    if (count > 0) {
-                                                        setCount(count - 1)
-                                                    }
-                                                }}>
-                                                    <Icon name='minus' size={15} color='black'></Icon>
-                                                </TouchableOpacity>
-                                            </View>
-                                            <View style={{ marginLeft: 13 }}>
-                                                <Text>{count}</Text>
-                                            </View>
-                                            <View style={{ marginLeft: 13 }}>
-                                                <TouchableOpacity onPress={() => { setCount(count + 1) }}>
-                                                    <Icon name='plus' size={15} color='black'></Icon>
-                                                </TouchableOpacity>
-                                            </View>
-                                        </View>
-                                        <View style={{ marginLeft: 20 }}>
+                                        <View style={{ marginLeft: 120 }}>
                                             <Icon name='cart-plus' size={30} color='orange'></Icon>
                                         </View>
                                     </View>
