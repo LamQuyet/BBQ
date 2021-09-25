@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, View, Animated } from 'react-native'
+import { Dimensions, FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Search from '../components/Searchbar';
 import category from '../data/category';
 import newDish from '../data/New';
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Swiper from 'react-native-swiper'
+import { AddCart } from '../Redux/actions'
+import { connect } from 'react-redux';
 
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = 210;
@@ -26,7 +28,7 @@ interface Sale {
     Image: String,
     Sale: String,
     OldCost: String,
-    NewCost: String
+    Cost: String
 }
 
 interface Food {
@@ -38,7 +40,7 @@ interface Food {
 }
 
 
-const Sale = () => {
+const Sale = ({ AddCart }: any) => {
     const [sale, setSale] = useState([]);
     const [newFood, setNewFood] = useState([])
 
@@ -111,8 +113,10 @@ const Sale = () => {
                                         <View style={{ alignItems: 'center' }}>
                                             <Text style={{ fontWeight: '700', marginTop: 5 }}> {item.Name}</Text>
                                             <Text style={{ color: '#666', fontStyle: 'italic', textDecorationLine: 'line-through' }}>{item.OldCost}</Text>
-                                            <Text>{item.NewCost}</Text>
-                                            <Icon name='cart-plus' size={24} color='orange'></Icon>
+                                            <Text>{item.Cost}</Text>
+                                            <TouchableOpacity onPress={() => AddCart(item)}>
+                                                <Icon name='cart-plus' size={24} color='orange'></Icon>
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                 )
@@ -135,7 +139,9 @@ const Sale = () => {
                                         <View style={{ alignItems: 'center' }}>
                                             <Text style={{ fontWeight: '700', marginTop: 5 }}> {item.title}</Text>
                                             <Text>{item.Cost}</Text>
-                                            <Icon name='cart-plus' size={24} color='orange'></Icon>
+                                            <TouchableOpacity onPress={() => AddCart(item)}>
+                                                <Icon name='cart-plus' size={24} color='orange'></Icon>
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                 )
@@ -147,7 +153,13 @@ const Sale = () => {
         </View>
     )
 }
-export default Sale;
+function mapDispatchToProps(dispatch: any) {
+    return {
+        AddCart: (item: any) => dispatch(AddCart(item))
+
+    }
+}
+export default connect(mapDispatchToProps, { AddCart })(Sale)
 
 const styles = StyleSheet.create({
     container: {

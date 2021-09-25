@@ -7,16 +7,17 @@ import * as axiosGetData from '../data/axiosGetData'
 import axios from 'axios'
 import SearchComponent from '../screens/Search'
 import { DrawerActions } from '@react-navigation/native';
+import { AddCart } from '../Redux/actions'
+import { connect } from 'react-redux';
 
 interface Food {
     _id: Object,
     Name: String,
-    Cost: String,
+    Cost: number,
     Category: String,
     Image: String,
 }
-const Home = ({ navigation }: any) => {
-    const [count, setCount] = useState(0)
+const Home = ({ navigation, AddCart }: any) => {
     const [food, setFood] = useState([])
     const [select, setSelect] = useState(1)
 
@@ -34,6 +35,12 @@ const Home = ({ navigation }: any) => {
     }, [select])
 
     let Food: Food[] = food;
+    const format = (price: number) => {
+        var money = '' + price;
+        return money.split('').reverse().reduce((prev, next, index) => {
+            return ((index % 3) ? next : (next + '.')) + prev
+        })
+    }
     return (
         <View style={styles.container}>
             <View style={styles.Top}>
@@ -90,10 +97,12 @@ const Home = ({ navigation }: any) => {
                                             style={{ width: 70, height: 70, borderRadius: 10 }}></Image>
                                         <View style={styles.sale}>
                                             <Text style={{ color: 'black', fontWeight: '700', fontSize: 16 }}>{item.Name}</Text>
-                                            <Text>{item.Cost}</Text>
+                                            <Text>{`${format(item.Cost)} VNĐ`}</Text>
                                         </View>
                                         <View style={{ marginLeft: 120 }}>
-                                            <Icon name='cart-plus' size={30} color='orange'></Icon>
+                                            <TouchableOpacity onPress={() => AddCart(item)}>
+                                                <Icon name='cart-plus' size={30} color='orange'></Icon>
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                 )
@@ -107,7 +116,13 @@ const Home = ({ navigation }: any) => {
         </View>
     )
 }
-export default Home;
+function mapDispatchToProps(dispatch: any) {
+    return {
+        AddCart: (item: any) => dispatch(AddCart(item))
+
+    }
+}
+export default connect(mapDispatchToProps, { AddCart })(Home)
 
 const styles = StyleSheet.create({
     container: {

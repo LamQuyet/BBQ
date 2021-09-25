@@ -7,11 +7,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Cart from "../screens/Cart";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import HomeStack from "./HomeSatck";
+import { connect } from 'react-redux'
+import { State } from "react-native-gesture-handler";
+import App from "../App";
 
 
 const Tab = createBottomTabNavigator();
 
-const BottomTab = () => {
+const BottomTab = ({ numberCart }: any) => {
     return (
         <Tab.Navigator
             initialRouteName='Home'
@@ -41,9 +44,15 @@ const BottomTab = () => {
         >
             <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
             <Tab.Screen name="Sale" component={Sale} options={{ headerShown: false }} />
-            <Tab.Screen name="Cart" component={Cart} options={{ headerShown: false }} />
+            <Tab.Screen name="Cart" component={Cart} options={{ tabBarBadge: numberCart }} />
             <Tab.Screen name="Account" component={Cart} options={{ headerShown: false }} />
         </Tab.Navigator>
     )
 }
-export default BottomTab
+const mapStateToProps = (state: any) => {
+    return {
+        numberCart: state._todoProduct.numberCart
+    }
+}
+export default connect(mapStateToProps, null)(BottomTab)
+// export default BottomTab

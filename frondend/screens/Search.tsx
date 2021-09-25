@@ -5,6 +5,8 @@ import category from '../data/category';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios'
 import * as axiosGetData from '../data/axiosGetData'
+import { AddCart } from '../Redux/actions'
+import { connect } from 'react-redux';
 
 interface Food {
     _id: Object,
@@ -14,7 +16,7 @@ interface Food {
     Image: String,
 }
 
-const SearchComponent = ({ navigation }: any) => {
+const SearchComponent = ({ navigation, AddCart }: any) => {
     const [search, setSearch] = useState('')
     const [data, setData] = useState([]);
     const [count, setCount] = useState(0)
@@ -65,7 +67,9 @@ const SearchComponent = ({ navigation }: any) => {
                             <View style={{ flexDirection: 'row', marginLeft: 50 }}>
                             </View>
                             <View style={{ marginLeft: 70 }}>
-                                <Icon name='cart-plus' size={30} color='orange'></Icon>
+                                <TouchableOpacity onPress={() => AddCart(item)}>
+                                    <Icon name='cart-plus' size={30} color='orange'></Icon>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     )
@@ -75,7 +79,13 @@ const SearchComponent = ({ navigation }: any) => {
 
     )
 }
-export default SearchComponent
+function mapDispatchToProps(dispatch: any) {
+    return {
+        AddCart: (item: any) => dispatch(AddCart(item))
+
+    }
+}
+export default connect(mapDispatchToProps, { AddCart })(SearchComponent)
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',

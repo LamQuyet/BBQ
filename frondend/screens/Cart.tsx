@@ -1,33 +1,91 @@
-import React from "react";
-import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
+import React, { useEffect } from "react";
+import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity, Touchable, Dimensions, Button, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { connect } from "react-redux";
+import { IncreaseQuantity, DecreaseQuantity, DeleteCart } from '../Redux/actions';
 
-const Cart = () => {
+const Cart = ({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }: any) => {
+
+    let TotalCart = 0;
+
+    items.Carts.forEach((item: any) => {
+        TotalCart += item.price * item.quantity
+    });
+    useEffect(() => {
+        console.log(items.Carts)
+    })
+
+    const format = (price: number) => {
+        var money = '' + price;
+        return money.split('').reverse().reduce((prev, next, index) => {
+            return ((index % 3) ? next : (next + '.')) + prev
+        })
+    }
     return (
         <View style={styles.contrainer}>
-            <View style={styles.baner}>
-                <Image source={require('../images/banner.jpg')}
-                    style={{ width: '100%', height: '100%' }}>
-                </Image>
-            </View>
-            <View style={styles.body}>
-                <Text>Body</Text>
-                <Icon name="rocket" size={30} color="#900" />
-            </View>
-            <View style={styles.footer}>
-                <View >
-                    <Text style={{ fontSize: 18, fontWeight: '700', marginLeft: 10, fontFamily: '' }}>Lâm Quyết BBQ</Text>
-                    <Text style={{ fontSize: 12, fontWeight: '700', marginLeft: 10 }}>98 Đường Mỹ Đình Nam Từ Liêm Hà Nội</Text>
-                </View>
-                <View>
-                    <Text style={{ fontSize: 12, fontWeight: '700', marginRight: 10 }}>Hotline: 0376105680</Text>
-                    <Text style={{ fontSize: 12, fontWeight: '700', marginRight: 10 }}>Mr.Quyet</Text>
+            <FlatList horizontal={false}
+                showsHorizontalScrollIndicator={false}
+                data={items.Carts}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => {
+                    return (
+                        <View style={{
+                            marginLeft: 10, alignItems: 'center', marginTop: 15, marginRight: 10, flexDirection: 'row',
+                            backgroundColor: 'white', borderRadius: 10
+                        }}>
+                            <Image source={{ uri: `${item.image}` }}
+                                style={{ width: 70, height: 70, borderRadius: 10 }}></Image>
+                            <View style={styles.sale}>
+                                <Text style={{ color: 'black', fontWeight: '700', fontSize: 16 }}>{item.name}</Text>
+                                <Text>{`${format(item.price)} VNĐ`}</Text>
+                            </View>
+                            <View style={{ marginLeft: 100, flexDirection: 'row', alignItems: 'center' }}>
+                                <View style={{ marginRight: 5 }}>
+                                    <TouchableOpacity onPress={() => { DecreaseQuantity(item) }}>
+                                        <Icon name='minus' size={15}></Icon>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ marginRight: 5 }}>
+                                    <Text>{item.quantity}</Text>
+                                </View>
+                                <TouchableOpacity onPress={() => { IncreaseQuantity(item) }}>
+                                    <Icon name='plus' size={15}></Icon>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    )
+                }}>
+            </FlatList>
+            <View style={{ backgroundColor: 'white', height: 60, justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 20, fontWeight: '700', marginLeft: 10, }}>Total:</Text>
+                    <View style={{ marginRight: 10, justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 15 }}>{`${format(TotalCart)} VNĐ`}</Text>
+                    </View>
+                    <View style={{ justifyContent: 'center', }}>
+                        <TouchableHighlight
+                            style={{
+                                backgroundColor: 'orange', width: 110, height: 40, alignItems: 'center',
+                                justifyContent: 'center', marginRight: 10, borderRadius: 70
+                            }}
+                            onPress={() => { }}
+                            underlayColor='#fff'>
+                            <Text style={{ fontSize: 20, fontWeight: '700', color: 'white' }}>Checkout</Text>
+                        </TouchableHighlight>
+                    </View>
                 </View>
             </View>
         </View>
     )
 }
-export default Cart;
+const mapStateToProps = (state: any) => {
+    // console.log(state)
+    return {
+        items: state._todoProduct
+    }
+}
+
+export default connect(mapStateToProps, { IncreaseQuantity, DecreaseQuantity, DeleteCart })(Cart)
 
 const styles = StyleSheet.create({
     contrainer: {
@@ -46,5 +104,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    sale: {
+        marginLeft: 10,
+        alignItems: 'baseline',
+        width: 100
+
     }
 })

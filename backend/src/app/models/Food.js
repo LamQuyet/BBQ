@@ -5,7 +5,7 @@ const ObjectId = Schema.ObjectId;
 const Food = new Schema({
     _id: ObjectId,
     Name: String,
-    Cost: String,
+    Cost: Number,
     Category: String,
     Image: String,
 });
