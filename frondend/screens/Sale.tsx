@@ -28,7 +28,7 @@ interface Sale {
     Image: String,
     Sale: String,
     OldCost: String,
-    Cost: String
+    Cost: number
 }
 
 interface Food {
@@ -39,6 +39,12 @@ interface Food {
     Image: String,
 }
 
+const format = (price: number) => {
+    var money = '' + price;
+    return money.split('').reverse().reduce((prev, next, index) => {
+        return ((index % 3) ? next : (next + '.')) + prev
+    })
+}
 
 const Sale = ({ AddCart }: any) => {
     const [sale, setSale] = useState([]);
@@ -113,7 +119,7 @@ const Sale = ({ AddCart }: any) => {
                                         <View style={{ alignItems: 'center' }}>
                                             <Text style={{ fontWeight: '700', marginTop: 5 }}> {item.Name}</Text>
                                             <Text style={{ color: '#666', fontStyle: 'italic', textDecorationLine: 'line-through' }}>{item.OldCost}</Text>
-                                            <Text>{item.Cost}</Text>
+                                            <Text>{`${format(item.Cost)} VNĐ`}</Text>
                                             <TouchableOpacity onPress={() => AddCart(item)}>
                                                 <Icon name='cart-plus' size={24} color='orange'></Icon>
                                             </TouchableOpacity>

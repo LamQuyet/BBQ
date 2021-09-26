@@ -77,11 +77,12 @@ const todoProduct = (state = initProduct, action) => {
             }
         case DELETE_CART:
             let quantity_ = state.Carts[action.payload].quantity;
+            console.log("quantity", quantity_);
+            console.log("cartnumber", state.numberCart.quantity)
             return {
-                ...state,
                 numberCart: state.numberCart - quantity_,
-                Carts: state.Carts.filter(item => {
-                    return item.id != state.Carts[action.payload].id
+                Carts: state.Carts.filter((item, index) => {
+                    return index != action.payload
                 })
 
             }

@@ -9,16 +9,20 @@ import DrawerTab from "./navigation/Drawer";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Provider } from "react-redux";
 import store from "./Redux/stores";
+import Login from './screens/Login';
+import Register from './screens/Register';
 
 
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <DrawerTab></DrawerTab>
-      </NavigationContainer>
-    </Provider>
+    //   <Provider store={store}>
+    //     <NavigationContainer>
+    //       <DrawerTab></DrawerTab>
+    //     </NavigationContainer>
+    //   </Provider>
+    // );
+    <Register></Register>
   );
 }
 export default App;

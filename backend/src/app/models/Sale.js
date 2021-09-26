@@ -8,7 +8,7 @@ const Sale = new Schema({
     Image: String,
     Sale: String,
     OldCost: String,
-    NewCost: String
+    Cost: Number
 });
 
 module.exports = mongoose.model('Sale', Sale);

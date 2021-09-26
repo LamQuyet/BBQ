@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
-import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity, Touchable, Dimensions, Button, TouchableHighlight } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity, Touchable, Dimensions, Button, TouchableHighlight, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from "react-redux";
 import { IncreaseQuantity, DecreaseQuantity, DeleteCart } from '../Redux/actions';
+import Swipeout from 'react-native-swipeout';
 
 const Cart = ({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }: any) => {
+    const [activeRowKey, setActiveRowKey] = useState(-1)
 
     let TotalCart = 0;
 
@@ -12,7 +14,7 @@ const Cart = ({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }: any) =>
         TotalCart += item.price * item.quantity
     });
     useEffect(() => {
-        console.log(items.Carts)
+        console.log(activeRowKey)
     })
 
     const format = (price: number) => {
@@ -21,38 +23,64 @@ const Cart = ({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }: any) =>
             return ((index % 3) ? next : (next + '.')) + prev
         })
     }
+
+    var swipeoutBtns = [
+        {
+            backgroundColor: 'red',
+            onPress: () => {
+                DeleteCart(activeRowKey)
+            },
+            text: 'Delete',
+        }
+    ]
     return (
         <View style={styles.contrainer}>
             <FlatList horizontal={false}
                 showsHorizontalScrollIndicator={false}
                 data={items.Carts}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => {
+                renderItem={({ item, index }) => {
                     return (
-                        <View style={{
-                            marginLeft: 10, alignItems: 'center', marginTop: 15, marginRight: 10, flexDirection: 'row',
-                            backgroundColor: 'white', borderRadius: 10
-                        }}>
-                            <Image source={{ uri: `${item.image}` }}
-                                style={{ width: 70, height: 70, borderRadius: 10 }}></Image>
-                            <View style={styles.sale}>
-                                <Text style={{ color: 'black', fontWeight: '700', fontSize: 16 }}>{item.name}</Text>
-                                <Text>{`${format(item.price)} VNĐ`}</Text>
-                            </View>
-                            <View style={{ marginLeft: 100, flexDirection: 'row', alignItems: 'center' }}>
-                                <View style={{ marginRight: 5 }}>
-                                    <TouchableOpacity onPress={() => { DecreaseQuantity(item) }}>
-                                        <Icon name='minus' size={15}></Icon>
+                        <Swipeout
+                            right={swipeoutBtns}
+                            autoClose
+                            backgroundColor={'#F2F2F2'}
+                            // rowId={index}
+                            // sectionId = {1}
+                            onOpen={(secId, rowId, direction) => {
+                                setActiveRowKey(index)
+                                console.log(index)
+                            }}
+                            onClose={(secId, rowId, direction) => {
+                                setActiveRowKey(-1)
+                                console.log(index)
+                            }}
+                        >
+                            <View style={{
+                                marginLeft: 5, alignItems: 'center', marginTop: 5, marginRight: 5, flexDirection: 'row',
+                                backgroundColor: 'white', borderRadius: 10
+                            }}>
+                                <Image source={{ uri: `${item.image}` }}
+                                    style={{ width: 100, height: 100, borderRadius: 10 }}></Image>
+                                <View style={styles.sale}>
+                                    <Text style={{ color: 'black', fontWeight: '700', fontSize: 18 }}>{item.name}</Text>
+                                    <Text>{`${format(item.price)} VNĐ`}</Text>
+                                </View>
+                                <View style={{ marginLeft: 90, flexDirection: 'row', alignItems: 'center', }}>
+                                    <View style={{ marginRight: 5, }}>
+                                        <TouchableOpacity onPress={() => { DecreaseQuantity(item) }}>
+                                            <Icon name='minus' size={15}></Icon>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{ marginRight: 5 }}>
+                                        <Text>{item.quantity}</Text>
+                                    </View>
+                                    <TouchableOpacity onPress={() => { IncreaseQuantity(item) }}>
+                                        <Icon name='plus' size={15}></Icon>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={{ marginRight: 5 }}>
-                                    <Text>{item.quantity}</Text>
-                                </View>
-                                <TouchableOpacity onPress={() => { IncreaseQuantity(item) }}>
-                                    <Icon name='plus' size={15}></Icon>
-                                </TouchableOpacity>
                             </View>
-                        </View>
+                        </Swipeout>
                     )
                 }}>
             </FlatList>
@@ -110,5 +138,8 @@ const styles = StyleSheet.create({
         alignItems: 'baseline',
         width: 100
 
+    },
+    buttonDelete: {
+        marginTop: 5
     }
 })
