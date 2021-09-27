@@ -7,8 +7,10 @@ import {
     TextInput,
     Button,
     TouchableOpacity,
+    Alert,
 } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import * as PostData from '../API/PostData'
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -25,8 +27,9 @@ const Register = () => {
                     style={styles.TextInput}
                     placeholder="Your name"
                     placeholderTextColor="#003f5c"
-                    onChangeText={(name) => setName(name)}
+                    onChangeText={setName}
                 />
+                {console.log(name)}
             </View>
 
             <View style={styles.inputView}>
@@ -35,8 +38,9 @@ const Register = () => {
                     style={styles.TextInput}
                     placeholder="Phone number"
                     placeholderTextColor="#003f5c"
-                    onChangeText={(phonenumber) => setPhoneNumber(phonenumber)}
+                    onChangeText={setPhoneNumber}
                 />
+                {console.log(phoneNumber)}
             </View>
 
             <View style={styles.inputView}>
@@ -46,8 +50,9 @@ const Register = () => {
                     placeholder="Password"
                     placeholderTextColor="#003f5c"
                     secureTextEntry={true}
-                    onChangeText={(confirm) => setConfirmPass(confirm)}
+                    onChangeText={setPassword}
                 />
+                {console.log(password)}
             </View>
 
             <View style={styles.inputView}>
@@ -57,16 +62,25 @@ const Register = () => {
                     placeholder="Confirm password"
                     placeholderTextColor="#003f5c"
                     secureTextEntry={true}
-                    onChangeText={(password) => setPassword(password)}
+                    onChangeText={setConfirmPass}
                 />
+                {console.log(confirmPass)}
             </View>
 
-            <TouchableOpacity style={styles.loginBtn}>
-                <Text>LOGIN</Text>
+            <TouchableOpacity style={styles.loginBtn}
+                onPress={() => {
+                    if (confirmPass === password) {
+                        PostData.Register(name, phoneNumber, password)
+                    }
+                    else {
+                        Alert.alert('Error', 'Password and username are not the same')
+                    }
+                }}>
+                <Text>REGISTER</Text>
             </TouchableOpacity>
             <View style={styles.Register}>
                 <Text> Has an account? </Text>
-                <TouchableOpacity>
+                <TouchableOpacity >
                     <Text style={{ color: 'orange' }}>Login</Text>
                 </TouchableOpacity>
             </View>

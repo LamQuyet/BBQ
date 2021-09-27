@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Dimensions, FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Search from '../components/Searchbar';
-import category from '../data/category';
-import newDish from '../data/New';
+import category from '../API/category';
+import newDish from '../API/New';
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Swiper from 'react-native-swiper'

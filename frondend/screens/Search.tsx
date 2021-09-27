@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput, Dimensions } from 'react-native'
 import Search from '../components/Searchbar';
-import category from '../data/category';
+import category from '../API/category';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios'
-import * as axiosGetData from '../data/axiosGetData'
+import * as GetData from '../API/GetData'
 import { AddCart } from '../Redux/actions'
 import { connect } from 'react-redux';
+import * as PostData from '../API/PostData'
 
 interface Food {
     _id: Object,
@@ -22,8 +23,8 @@ const SearchComponent = ({ navigation, AddCart }: any) => {
     const [count, setCount] = useState(0)
 
     useEffect(() => {
-        axiosGetData.Search(search)
-        axiosGetData.getSearch(setData)
+        PostData.Search(search)
+        GetData.getSearch(setData)
     }, [search])
 
 

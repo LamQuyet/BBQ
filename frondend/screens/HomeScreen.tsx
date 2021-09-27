@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Search from '../components/Searchbar';
-import category from '../data/category';
+import category from '../API/category';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import * as axiosGetData from '../data/axiosGetData'
+import * as axiosGetData from '../API/GetData'
 import axios from 'axios'
 import SearchComponent from '../screens/Search'
 import { DrawerActions } from '@react-navigation/native';
