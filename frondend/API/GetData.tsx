@@ -40,19 +40,6 @@ export const getAll = (setState: any) => {
         .catch(err => { console.log(err) })
 }
 
-export const Search = (text: String) => {
-    axios.post('http://10.0.2.2:3000/food/search', {
-        search: text,
-    },
-    )
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-}
 
 export const getSearch = (setState: any) => {
     axios({

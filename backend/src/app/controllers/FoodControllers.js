@@ -5,14 +5,9 @@ class FoodController {
 
     getSearch(req, res) {
         console.log(req.body);
-        searchdata = req.body.search
-        console.log(searchdata)
-    }
-
-    //Search
-    Search(req, res) {
-        Food.find({ "Name": { '$regex': searchdata } }, function (err, data) {
-            console.log(searchdata)
+        // searchdata = req.body.search
+        Food.find({ "Name": { '$regex': req.body.search } }, function (err, data) {
+            console.log(req.body.search)
             if (!err) {
                 res.json(data)
             } else {
@@ -20,6 +15,18 @@ class FoodController {
             }
         })
     }
+
+    //Search
+    // Search(req, res) {
+    //     Food.find({ "Name": { '$regex': searchdata } }, function (err, data) {
+    //         console.log(searchdata)
+    //         if (!err) {
+    //             res.json(data)
+    //         } else {
+    //             res.status(500).json({ error: "FAIL" })
+    //         }
+    //     })
+    // }
 
 
     //GET BBQ

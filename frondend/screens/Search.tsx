@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput, Dimensions } from 'react-native'
 import Search from '../components/Searchbar';
 import category from '../API/category';
@@ -8,6 +8,7 @@ import * as GetData from '../API/GetData'
 import { AddCart } from '../Redux/actions'
 import { connect } from 'react-redux';
 import * as PostData from '../API/PostData'
+import _, { debounce } from "lodash";
 
 interface Food {
     _id: Object,
@@ -20,13 +21,10 @@ interface Food {
 const SearchComponent = ({ navigation, AddCart }: any) => {
     const [search, setSearch] = useState('')
     const [data, setData] = useState([]);
-    const [count, setCount] = useState(0)
 
     useEffect(() => {
-        PostData.Search(search)
-        GetData.getSearch(setData)
+        PostData.Search(search, setData)
     }, [search])
-
 
     let searchdata: Food[] = data;
     return (
@@ -43,7 +41,7 @@ const SearchComponent = ({ navigation, AddCart }: any) => {
                     <TextInput
                         style={styles.input}
                         placeholder='Search'
-                        onChangeText={setSearch}
+                        onChangeText={_.debounce(setSearch, 500)}
                     >
                     </TextInput>
                     {console.log(search)}
@@ -57,7 +55,7 @@ const SearchComponent = ({ navigation, AddCart }: any) => {
                     return (
                         <View style={{
                             marginLeft: 10, alignItems: 'center', marginTop: 15, marginRight: 10, flexDirection: 'row',
-                            backgroundColor: 'white', borderRadius: 10, width: Dimensions.get('screen').width
+                            backgroundColor: 'white', borderRadius: 10, width: Dimensions.get('screen').width - 40
                         }}>
                             <Image source={{ uri: `${item.Image}` }}
                                 style={{ width: 70, height: 70, borderRadius: 10 }}></Image>

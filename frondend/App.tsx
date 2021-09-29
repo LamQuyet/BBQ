@@ -16,14 +16,14 @@ import Register from './screens/Register';
 
 const App = () => {
   return (
-    //   <Provider store={store}>
-    //     <NavigationContainer>
-    //       <DrawerTab></DrawerTab>
-    //     </NavigationContainer>
-    //   </Provider>
-    // );
-    <Register></Register>
+    <Provider store={store}>
+      <NavigationContainer>
+        <DrawerTab></DrawerTab>
+      </NavigationContainer>
+    </Provider>
   );
+  // <Login></Login>
+  // );
 }
 export default App;
 
