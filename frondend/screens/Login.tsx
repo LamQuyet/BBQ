@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -15,17 +15,20 @@ import { RegisterSchema } from "../components/validate";
 import { ValidationError } from "yup";
 import * as PostData from '../API/PostData'
 
-const Login = () => {
+const Login = ({ navigation }: any) => {
     const [status, setStatus] = useState('')
-    const clickLogin = async (values: any) => {
-        await PostData.Login(values.PhoneNumber, values.PassWord, setStatus)
-        if (status.length) {
+    const clickLogin = (values: any) => {
+        PostData.Login(values.PhoneNumber, values.PassWord, setStatus)
+    }
+    useEffect(() => {
+        if (status === "Done") {
+            navigation.replace('Main')
+        }
+        if (status === "Sai số điện thoại hoặc mật khẩu") {
             Alert.alert("Warning", status)
         }
-        else {
-            Alert.alert('Đăng nhập thành công')
-        }
-    }
+        setStatus('')
+    }, [status])
 
     return (
         <View style={styles.container}>
@@ -37,8 +40,14 @@ const Login = () => {
                 }}
                 validationSchema={RegisterSchema}
                 onSubmit={values => {
-                    // same shape as initial values
-                    console.log(values);
+                    PostData.Login(values.PhoneNumber, values.PassWord, setStatus)
+                    console.log("STATUS", status)
+                    if (status === "") {
+                        Alert.alert('Đăng nhập thành công')
+                    }
+                    else {
+                        Alert.alert("Warning", status)
+                    }
                 }}
             >
                 {({ errors, touched, handleBlur, handleChange, handleSubmit, values }) => (
@@ -95,7 +104,7 @@ const Login = () => {
             </Formik>
             <View style={styles.Register}>
                 <Text> Are you a new user? </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.replace('Register') }}>
                     <Text style={{ color: 'orange' }}>Register</Text>
                 </TouchableOpacity>
             </View>

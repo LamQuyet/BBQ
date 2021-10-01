@@ -12,7 +12,7 @@ const DrawerTab = () => {
             screenOptions={{ headerShown: false }}
         >
             <Drawer.Screen name="Tab" component={BottomTab} />
-            {/* <Drawer.Screen name="Article" component={Cart} /> */}
+            <Drawer.Screen name="Article" component={Cart} />
         </Drawer.Navigator>
     )
 }

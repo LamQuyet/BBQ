@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -15,8 +15,19 @@ import { Formik, Form, Field } from 'formik';
 import { RegisterSchema } from "../components/validate";
 import { ValidationError } from "yup";
 
-const Register = () => {
+const Register = ({ navigation }: any) => {
     const [status, setStatus] = useState('')
+    useEffect(() => {
+        if (status === "Số điện thoại đã được dùng") {
+            Alert.alert(status)
+        }
+        if (status === "Đăng kí thành công") {
+            Alert.alert("Warning", status, [
+                { text: 'OK', onPress: navigation.replace('Login') }
+            ])
+        }
+        setStatus('')
+    }, [status])
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={require("../images/logo.png")} />
@@ -36,7 +47,7 @@ const Register = () => {
                 {({ errors, touched, handleBlur, handleChange, handleSubmit, values }) => (
                     <View>
                         <View style={styles.inputView}>
-                            <Icon name='mobile-alt' size={20} style={{ marginLeft: 18 }}></Icon>
+                            <Icon name='user-alt' size={20} style={{ marginLeft: 18 }}></Icon>
                             <TextInput
                                 style={styles.TextInput}
                                 placeholder="Your name"
@@ -106,7 +117,6 @@ const Register = () => {
                                 else {
                                     if (values.ConfirmPass === values.PassWord) {
                                         PostData.Register(values.Name, values.PhoneNumber, values.PassWord, setStatus)
-                                        Alert.alert("Warning", status)
                                     }
                                     else {
                                         Alert.alert('Error', 'Password and username are not the same')
@@ -122,7 +132,7 @@ const Register = () => {
             </Formik>
             <View style={styles.Register}>
                 <Text> Has an account? </Text>
-                <TouchableOpacity >
+                <TouchableOpacity onPress={() => { navigation.replace('Login') }}>
                     <Text style={{ color: 'orange' }}>Login</Text>
                 </TouchableOpacity>
             </View>

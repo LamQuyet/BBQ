@@ -1,13 +1,14 @@
 import axios from 'axios'
+import { Alert } from 'react-native';
 
-export const Search = (text: String, setState: any) => {
+export const Search = async (text: String, setState: any) => {
     axios.post('http://10.0.2.2:3000/food/search', {
         search: text,
     },
     )
         .then(function (response) {
-            console.log(response.data)
-            setState(response.data)
+            console.log(response.data);
+            setState = response.data;
         })
         .catch(function (error) {
             console.log(error);
@@ -36,7 +37,7 @@ export const Register = (name: String, phonenumber: String, password: String, se
     },
     )
         .then(function (response) {
-            setState(response.data);
+            setState(response.data)
         })
         .catch(function (error) {
             console.log(error);
@@ -50,9 +51,14 @@ export const Login = (phonenumber: String, password: any, setState: any) => {
         Password: password
     },
     )
-        .then(function (response) {
-            setState(response.data);
-            console.log(response.data)
+        .then((res) => {
+            // if (res.data === "") {
+            //     Alert.alert('Đăng nhập thành công')
+            // }
+            // else {
+            //     Alert.alert("Warning", res.data)
+            // }
+            setState(res.data)
         })
         .catch(function (error) {
             console.log(error);

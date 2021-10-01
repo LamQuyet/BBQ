@@ -13,9 +13,7 @@ const Cart = ({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }: any) =>
     items.Carts.forEach((item: any) => {
         TotalCart += item.price * item.quantity
     });
-    useEffect(() => {
-        console.log(activeRowKey)
-    })
+
 
     const format = (price: number) => {
         var money = '' + price;
@@ -33,6 +31,7 @@ const Cart = ({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }: any) =>
             text: 'Delete',
         }
     ]
+
     return (
         <View style={styles.contrainer}>
             <FlatList horizontal={false}
@@ -40,20 +39,18 @@ const Cart = ({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }: any) =>
                 data={items.Carts}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => {
+                    console.disableYellowBox = true;
                     return (
                         <Swipeout
                             right={swipeoutBtns}
                             autoClose
                             backgroundColor={'#F2F2F2'}
-                            // rowId={index}
-                            // sectionId = {1}
                             onOpen={(secId, rowId, direction) => {
                                 setActiveRowKey(index)
-                                console.log(index)
                             }}
                             onClose={(secId, rowId, direction) => {
                                 setActiveRowKey(-1)
-                                console.log(index)
+
                             }}
                         >
                             <View style={{

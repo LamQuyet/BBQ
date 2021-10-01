@@ -23,10 +23,13 @@ class AccountController {
     }
     async Login(req, res) {
         console.log(req.body)
-        Account.find({ PhoneNumber: req.body.PhoneNumber, Password: req.body.Password }, function (err, docs) {
+        Account.find({ PhoneNumber: req.body.PhoneNumber, Password: req.body.Password }, async function (err, docs) {
             console.log(docs)
             if (docs.length == 0) {
-                res.send("Sai số điện thoại hoặc mật khẩu")
+                await res.send("Sai số điện thoại hoặc mật khẩu")
+            }
+            else {
+                await res.send('Done')
             }
         })
     }

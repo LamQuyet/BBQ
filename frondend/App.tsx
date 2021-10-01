@@ -11,6 +11,8 @@ import { Provider } from "react-redux";
 import store from "./Redux/stores";
 import Login from './screens/Login';
 import Register from './screens/Register';
+import LoginRegister from './navigation/LoginRegisteStack';
+import MainStack from './navigation/MainStack';
 
 
 
@@ -18,12 +20,10 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <DrawerTab></DrawerTab>
+        <MainStack></MainStack>
       </NavigationContainer>
     </Provider>
   );
-  // <Login></Login>
-  // );
 }
 export default App;
 
