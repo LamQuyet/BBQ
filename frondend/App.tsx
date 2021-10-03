@@ -13,6 +13,7 @@ import Login from './screens/Login';
 import Register from './screens/Register';
 import LoginRegister from './navigation/LoginRegisteStack';
 import MainStack from './navigation/MainStack';
+import Checkout from './screens/Checkout';
 
 
 
@@ -23,6 +24,7 @@ const App = () => {
         <MainStack></MainStack>
       </NavigationContainer>
     </Provider>
+    // <Checkout></Checkout>
   );
 }
 export default App;

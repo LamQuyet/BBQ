@@ -3,6 +3,7 @@ var searchdata;
 
 class FoodController {
 
+    //POST search
     getSearch(req, res) {
         console.log(req.body);
         // searchdata = req.body.search
@@ -15,19 +16,6 @@ class FoodController {
             }
         })
     }
-
-    //Search
-    // Search(req, res) {
-    //     Food.find({ "Name": { '$regex': searchdata } }, function (err, data) {
-    //         console.log(searchdata)
-    //         if (!err) {
-    //             res.json(data)
-    //         } else {
-    //             res.status(500).json({ error: "FAIL" })
-    //         }
-    //     })
-    // }
-
 
     //GET BBQ
     getBBQ(req, res) {

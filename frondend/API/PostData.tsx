@@ -52,13 +52,27 @@ export const Login = (phonenumber: String, password: any, setState: any) => {
     },
     )
         .then((res) => {
-            // if (res.data === "") {
-            //     Alert.alert('Đăng nhập thành công')
-            // }
-            // else {
-            //     Alert.alert("Warning", res.data)
-            // }
             setState(res.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+}
+
+export const Order = (account: String, name: String, address: String, phone: String, foods: Object, totalprice: number) => {
+    axios.post('http://10.0.2.2:3000/bill/order', {
+        Account: account,
+        Name: name,
+        Addres: address,
+        PhoneNumber: phone,
+        Foods: foods,
+        TotalPrice: totalprice,
+        status: false
+    },
+    )
+        .then((res) => {
+            // setState(res.data)
         })
         .catch(function (error) {
             console.log(error);

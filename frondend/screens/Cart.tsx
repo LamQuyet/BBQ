@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { IncreaseQuantity, DecreaseQuantity, DeleteCart } from '../Redux/actions';
 import Swipeout from 'react-native-swipeout';
 
-const Cart = ({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }: any) => {
+const Cart = ({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart, navigation }: any) => {
     const [activeRowKey, setActiveRowKey] = useState(-1)
 
     let TotalCart = 0;
@@ -93,7 +93,7 @@ const Cart = ({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }: any) =>
                                 backgroundColor: 'orange', width: 110, height: 40, alignItems: 'center',
                                 justifyContent: 'center', marginRight: 10, borderRadius: 70
                             }}
-                            onPress={() => { }}
+                            onPress={() => { navigation.navigate('Checkout', { totalprice: TotalCart }) }}
                             underlayColor='#fff'>
                             <Text style={{ fontSize: 20, fontWeight: '700', color: 'white' }}>Checkout</Text>
                         </TouchableHighlight>

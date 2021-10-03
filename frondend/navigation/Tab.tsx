@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import { State } from "react-native-gesture-handler";
 import App from "../App";
 import Account from "../screens/Account";
+import CartStack from "./CartStack";
 
 
 const Tab = createBottomTabNavigator();
@@ -45,7 +46,7 @@ const BottomTab = ({ numberCart }: any) => {
         >
             <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
             <Tab.Screen name="Sale" component={Sale} options={{ headerShown: false }} />
-            <Tab.Screen name="Cart" component={Cart} options={{ tabBarBadge: numberCart }} />
+            <Tab.Screen name="Cart" component={CartStack} options={{ tabBarBadge: numberCart }} />
             <Tab.Screen name="Account" component={Account} options={{ headerShown: false }} />
         </Tab.Navigator>
     )
