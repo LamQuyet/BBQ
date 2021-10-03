@@ -2,6 +2,7 @@ import React from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import BottomTab from "./Tab";
 import Cart from "../screens/Cart";
+import { DrawerContent } from "../screens/DrawerContent";
 
 const Drawer = createDrawerNavigator();
 
@@ -10,6 +11,7 @@ const DrawerTab = () => {
         <Drawer.Navigator
             initialRouteName='Tab'
             screenOptions={{ headerShown: false }}
+
         >
             <Drawer.Screen name="Tab" component={BottomTab} />
             <Drawer.Screen name="Article" component={Cart} />

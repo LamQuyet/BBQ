@@ -14,15 +14,42 @@ import { Formik, Form, Field } from 'formik';
 import { RegisterSchema } from "../components/validate";
 import { ValidationError } from "yup";
 import * as PostData from '../API/PostData'
+import * as AsynStore from '../components/AsyncStore'
 
 const Login = ({ navigation }: any) => {
     const [status, setStatus] = useState('')
+    const [phone, setPhone] = useState()
+    const [pass, setPass] = useState()
+
     const clickLogin = (values: any) => {
         PostData.Login(values.PhoneNumber, values.PassWord, setStatus)
+        setPhone(values.PhoneNumber)
+        setPass(values.PassWord)
     }
+    useEffect(() => {
+        (AsynStore.CheckLogin()
+            .then((res) => {
+                if (res != null) {
+                    navigation.replace('Main')
+                }
+                else {
+                    console.log("can't login")
+                }
+            })
+        )
+    }, [])
+    // if (AsynStore.CheckLogin() === null) {
+    //     console.log('Do not login', AsynStore.CheckLogin())
+    // }
+    // else {
+    //     navigation.replace('Main')
+    //     console.log('Do not login', AsynStore.CheckLogin())
+    // }
+    // }, [])
     useEffect(() => {
         if (status === "Done") {
             navigation.replace('Main')
+            AsynStore.Login({ phone, pass })
         }
         if (status === "Sai số điện thoại hoặc mật khẩu") {
             Alert.alert("Warning", status)

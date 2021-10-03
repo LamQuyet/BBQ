@@ -5,9 +5,12 @@ const Account = () => {
     return (
         <View style={styles.container}>
             <View style={styles.top}>
-                <Image source={require('../images/avatar.jpg')}
-                    style={styles.avatar}
-                ></Image>
+                <ImageBackground source={require('../images/background1.jpg')}
+                    style={{ width: '100%', height: '100%' }}>
+                    <Image source={require('../images/avatar.jpg')}
+                        style={styles.avatar}
+                    ></Image>
+                </ImageBackground>
                 <View style={styles.information}>
                     <Text style={{ color: 'white', fontSize: 20 }}>Baby supper cute</Text>
                     <Text style={{ color: 'white' }}>babycute@gmail.com</Text>

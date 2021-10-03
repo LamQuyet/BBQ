@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import Search from '../../screens/Search';
-import { GET_NUMBER_CART, GET_CART, ADD_CART, DECREASE_QUANTITY, INCREASE_QUANTITY, DELETE_CART } from '../actions';
+import { GET_NUMBER_CART, GET_CART, ADD_CART, DECREASE_QUANTITY, INCREASE_QUANTITY, DELETE_CART, GET_DATA } from '../actions';
+import * as AsyncStore from '../../components/AsyncStore'
 
 const initProduct = {
     numberCart: 0,
@@ -47,6 +48,7 @@ const todoProduct = (state = initProduct, action) => {
                     state.Carts.push(_cart);
                 }
             }
+            AsyncStore.storeData({ ...state, numberCart: state.numberCart + 1 })
             return {
                 ...state,
                 numberCart: state.numberCart + 1
@@ -86,6 +88,12 @@ const todoProduct = (state = initProduct, action) => {
                 })
 
             }
+        case GET_DATA:
+            AsyncStore.storeData()
+                .then((res) => {
+                    let data = res;
+                    console.log('data', data)
+                })
         default:
             return state;
     }

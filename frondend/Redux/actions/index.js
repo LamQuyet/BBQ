@@ -3,6 +3,7 @@ export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const GET_ALL_PRODUCT = 'GET_ALL_PRODUCT';
 export const GET_NUMBER_CART = 'GET_NUMBER_CART';
+export const GET_DATA = 'GET_DATA';
 export const ADD_CART = 'ADD_CART';
 export const UPDATE_CART = 'UPDATE_CART';
 export const DELETE_CART = 'DELETE_CART';
@@ -12,6 +13,11 @@ export const DELETE_CART = 'DELETE_CART';
 export function GetNumberCart() {
     return {
         type: 'GET_NUMBER_CART'
+    }
+}
+export function GetData() {
+    return {
+        type: 'GET_DATA'
     }
 }
 

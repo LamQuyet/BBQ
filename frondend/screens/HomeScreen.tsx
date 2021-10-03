@@ -7,8 +7,9 @@ import * as axiosGetData from '../API/GetData'
 import axios from 'axios'
 import SearchComponent from '../screens/Search'
 import { DrawerActions } from '@react-navigation/native';
-import { AddCart } from '../Redux/actions'
+import { AddCart, GetData } from '../Redux/actions'
 import { connect } from 'react-redux';
+import * as AsynStore from '../components/AsyncStore'
 
 interface Food {
     _id: Object,
@@ -17,9 +18,15 @@ interface Food {
     Category: String,
     Image: String,
 }
-const Home = ({ navigation, AddCart }: any) => {
+const Home = ({ navigation, AddCart, GetData }: any) => {
     const [food, setFood] = useState([])
     const [select, setSelect] = useState(1)
+    useEffect(() => {
+        let a = AsynStore.getData()
+        console.log('test', a)
+        GetData()
+        AsynStore.CheckLogin()
+    }, [])
 
     useEffect(() => {
         if (select == 1) {
@@ -118,11 +125,12 @@ const Home = ({ navigation, AddCart }: any) => {
 }
 function mapDispatchToProps(dispatch: any) {
     return {
-        AddCart: (item: any) => dispatch(AddCart(item))
+        AddCart: (item: any) => dispatch(AddCart(item)),
+        GetData: () => dispatch(GetData())
 
     }
 }
-export default connect(mapDispatchToProps, { AddCart })(Home)
+export default connect(mapDispatchToProps, { AddCart, GetData })(Home)
 
 const styles = StyleSheet.create({
     container: {
