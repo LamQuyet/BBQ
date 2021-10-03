@@ -9,12 +9,12 @@ const Drawer = createDrawerNavigator();
 const DrawerTab = () => {
     return (
         <Drawer.Navigator
+            drawerContent={props => <DrawerContent {...props} />}
             initialRouteName='Tab'
             screenOptions={{ headerShown: false }}
-
         >
             <Drawer.Screen name="Tab" component={BottomTab} />
-            <Drawer.Screen name="Article" component={Cart} />
+            <Drawer.Screen name="content" component={DrawerContent} />
         </Drawer.Navigator>
     )
 }

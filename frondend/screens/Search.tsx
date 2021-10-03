@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput, Dimensions } from 'react-native'
-import Search from '../components/Searchbar';
 import category from '../API/category';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios'
