@@ -69,25 +69,27 @@ const Home = ({ navigation, AddCart, GetData }: any) => {
                 </ImageBackground>
             </View>
             <View style={styles.Body}>
-                <View >
-                    <FlatList horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        data={category}
-                        renderItem={({ item }) => {
-                            return (
-                                <TouchableOpacity onPress={() => { setSelect(item.key) }}>
-                                    <View style={{
-                                        marginLeft: 12, alignItems: 'center', justifyContent: 'space-between', marginHorizontal: 10,
-                                        marginTop: 20, marginRight: 10, flexDirection: 'row', backgroundColor: item.key == select ? '#00CCCC' : 'orange', borderRadius: 30
-                                    }}>
-                                        <Image source={{ uri: item.image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }}></Image>
-                                        <Text style={{ fontWeight: '700', marginLeft: 5, marginRight: 10 }}> {item.title}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            )
-                        }}>
-                    </FlatList>
-                    <View>
+                <View style={{ flex: 1 }} >
+                    <View style={{ flex: 1 }}>
+                        <FlatList horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            data={category}
+                            renderItem={({ item }) => {
+                                return (
+                                    <TouchableOpacity onPress={() => { setSelect(item.key) }}>
+                                        <View style={{
+                                            marginLeft: 12, alignItems: 'center', justifyContent: 'space-between', marginHorizontal: 10,
+                                            marginTop: 20, marginRight: 10, flexDirection: 'row', backgroundColor: item.key == select ? '#00CCCC' : 'orange', borderRadius: 30
+                                        }}>
+                                            <Image source={{ uri: item.image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }}></Image>
+                                            <Text style={{ fontWeight: '700', marginLeft: 5, marginRight: 10 }}> {item.title}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )
+                            }}>
+                        </FlatList>
+                    </View>
+                    <View style={{ flex: 7 }}>
                         {/* <ScrollView> */}
                         <FlatList horizontal={false}
                             showsHorizontalScrollIndicator={false}
@@ -97,7 +99,7 @@ const Home = ({ navigation, AddCart, GetData }: any) => {
                                 return (
                                     <View style={{
                                         marginLeft: 10, alignItems: 'center', marginTop: 15, marginRight: 10, flexDirection: 'row',
-                                        backgroundColor: 'white', borderRadius: 10
+                                        backgroundColor: 'white', borderRadius: 10,
                                     }}>
                                         <Image source={{ uri: `${item.Image}` }}
                                             style={{ width: 70, height: 70, borderRadius: 10 }}></Image>

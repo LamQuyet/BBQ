@@ -8,7 +8,7 @@ export const Search = async (text: String, setState: any) => {
     )
         .then(function (response) {
             console.log(response.data);
-            setState = response.data;
+            setState(response.data)
         })
         .catch(function (error) {
             console.log(error);

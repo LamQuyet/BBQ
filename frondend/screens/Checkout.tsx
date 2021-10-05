@@ -57,7 +57,7 @@ const Checkout = ({ items, route, navigation }: any) => {
                     }
                     else {
                         Order(account, name, address, phone, foods, totalprice)
-                        Alert.alert('Warning', 'Done')
+                        Alert.alert('Warning', 'Done', [{ text: 'OK', onPress: navigation.goBack() }])
                     }
                 }}
             >

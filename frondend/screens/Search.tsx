@@ -26,6 +26,7 @@ const SearchComponent = ({ navigation, AddCart }: any) => {
     }, [search])
 
     let searchdata: Food[] = data;
+    console.log("Search", data)
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row' }}>
