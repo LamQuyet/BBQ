@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import MyTabs from '../navigation/TopTab';
 
 const Account = () => {
     return (
@@ -17,7 +18,9 @@ const Account = () => {
                 </View>
             </View>
 
-            <View style={styles.body}></View>
+            <View style={styles.body}>
+                <MyTabs></MyTabs>
+            </View>
         </View>
     )
 }

@@ -13,5 +13,15 @@ class BillController {
             }
         })
     }
+
+    getBill(req, res) {
+        Bill.find({ Status: false }, function (err, data) {
+            if (!err) {
+                res.json(data)
+            } else {
+                res.status(500).json({ error: "FAIL" })
+            }
+        })
+    }
 }
 module.exports = new BillController

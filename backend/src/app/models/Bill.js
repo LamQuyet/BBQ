@@ -9,7 +9,7 @@ const Bill = new Schema({
     PhoneNumber: String,
     Foods: Object,
     TotalPrice: Number,
-    Status: Boolean,
+    Status: { type: Boolean, default: false },
     Time: { type: Date, default: Date.now }
 });
 module.exports = mongoose.model('Bill', Bill);

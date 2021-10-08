@@ -68,7 +68,6 @@ export const Order = (account: String, name: String, address: String, phone: Str
         PhoneNumber: phone,
         Foods: foods,
         TotalPrice: totalprice,
-        status: false
     },
     )
         .then((res) => {
