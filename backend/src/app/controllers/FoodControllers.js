@@ -1,5 +1,4 @@
 const Food = require('../models/Food')
-var searchdata;
 
 class FoodController {
 
@@ -11,6 +10,7 @@ class FoodController {
             console.log(req.body.search)
             if (!err) {
                 res.json(data)
+                // res.send(data)
             } else {
                 res.status(500).json({ error: "FAIL" })
             }

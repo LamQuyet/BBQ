@@ -111,15 +111,20 @@ const Register = ({ navigation }: any) => {
 
                         <TouchableOpacity style={styles.loginBtn}
                             onPress={() => {
-                                if (errors.Name || errors.PhoneNumber || errors.PassWord || errors.ConfirmPass) {
-                                    Alert.alert('Error', 'Data is not valid')
+                                if (values.Name == '' || values.PhoneNumber == '' || values.PassWord == '' || values.ConfirmPass == '') {
+                                    Alert.alert('Error', 'Data null')
                                 }
                                 else {
-                                    if (values.ConfirmPass === values.PassWord) {
-                                        PostData.Register(values.Name, values.PhoneNumber, values.PassWord, setStatus)
+                                    if (errors.Name || errors.PhoneNumber || errors.PassWord || errors.ConfirmPass) {
+                                        Alert.alert('Error', 'Data is not valid')
                                     }
                                     else {
-                                        Alert.alert('Error', 'Password and username are not the same')
+                                        if (values.ConfirmPass === values.PassWord) {
+                                            PostData.Register(values.Name, values.PhoneNumber, values.PassWord, setStatus)
+                                        }
+                                        else {
+                                            Alert.alert('Error', 'Password and username are not the same')
+                                        }
                                     }
                                 }
 

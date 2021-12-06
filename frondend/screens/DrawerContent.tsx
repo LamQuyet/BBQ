@@ -54,7 +54,7 @@ const DrawerContent = (props: any, { navigation }: any) => {
                 </DrawerContentScrollView>
                 <TouchableOpacity onPress={() => {
                     AsyncStore.Login(null)
-                    props.navigation.replace('LoginStack')
+                    props.navigation.replace('LoginStack') 
                 }}>
                     <View style={styles.LogoutStyles}>
                         <Icon name='sign-out-alt' size={20} color='#808080'></Icon>

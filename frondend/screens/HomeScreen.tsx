@@ -79,7 +79,8 @@ const Home = ({ navigation, AddCart, GetData }: any) => {
                                     <TouchableOpacity onPress={() => { setSelect(item.key) }}>
                                         <View style={{
                                             marginLeft: 12, alignItems: 'center', justifyContent: 'space-between', marginHorizontal: 10,
-                                            marginTop: 20, marginRight: 10, flexDirection: 'row', backgroundColor: item.key == select ? '#00CCCC' : 'orange', borderRadius: 30
+                                            marginTop: 20, marginRight: 10, flexDirection: 'row', backgroundColor: item.key == select ? '#00CCCC' : 'orange',
+                                            borderRadius: 30,
                                         }}>
                                             <Image source={{ uri: item.image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }}></Image>
                                             <Text style={{ fontWeight: '700', marginLeft: 5, marginRight: 10 }}> {item.title}</Text>
@@ -94,20 +95,21 @@ const Home = ({ navigation, AddCart, GetData }: any) => {
                         <FlatList horizontal={false}
                             showsHorizontalScrollIndicator={false}
                             data={Food}
+                            numColumns={2}
                             keyExtractor={(item) => item._id.toString()}
                             renderItem={({ item }) => {
                                 return (
                                     <View style={{
-                                        marginLeft: 10, alignItems: 'center', marginTop: 15, marginRight: 10, flexDirection: 'row',
-                                        backgroundColor: 'white', borderRadius: 10,
+                                        marginHorizontal: 10, alignItems: 'center', marginTop: 15, flexDirection: 'column',
+                                        backgroundColor: 'white', borderRadius: 10, flex: 1,
                                     }}>
                                         <Image source={{ uri: `${item.Image}` }}
-                                            style={{ width: 70, height: 70, borderRadius: 10 }}></Image>
+                                            style={{ width: 150, height: 150, borderRadius: 10, marginTop: 10 }}></Image>
                                         <View style={styles.sale}>
-                                            <Text style={{ color: 'black', fontWeight: '700', fontSize: 16 }}>{item.Name}</Text>
+                                            <Text style={{ color: 'black', fontWeight: '700', fontSize: 16, }}>{item.Name}</Text>
                                             <Text>{`${format(item.Cost)} VNĐ`}</Text>
                                         </View>
-                                        <View style={{ marginLeft: 120 }}>
+                                        <View style={{ marginBottom: 10 }}>
                                             <TouchableOpacity onPress={() => AddCart(item)}>
                                                 <Icon name='cart-plus' size={30} color='orange'></Icon>
                                             </TouchableOpacity>
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
     },
     sale: {
         marginLeft: 10,
-        alignItems: 'baseline',
+        alignItems: 'center',
         width: 100
 
     }

@@ -4,6 +4,8 @@ import Home from "../screens/HomeScreen";
 import SearchComponent from "../screens/Search";
 import LoginRegister from "./LoginRegisteStack";
 import DrawerTab from "./Drawer";
+import Admin from "../screens/Admin";
+import AdmAccount from "../screens/AccountAdmin";
 
 const Stack = createStackNavigator();
 
@@ -15,6 +17,7 @@ const MainStack = () => {
         >
             <Stack.Screen name="LoginStack" component={LoginRegister} />
             <Stack.Screen name="Main" component={DrawerTab} />
+            <Stack.Screen name="Admin" component={AdmAccount} />
         </Stack.Navigator>
     )
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import BottomTab from "./Tab";
+import BottomTab from "./BottomTab";
 import Cart from "../screens/Cart";
 import { DrawerContent } from "../screens/DrawerContent";
 

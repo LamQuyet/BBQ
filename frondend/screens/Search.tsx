@@ -12,7 +12,7 @@ import _, { debounce } from "lodash";
 interface Food {
     _id: Object,
     Name: String,
-    Cost: String,
+    Cost: number,
     Category: String,
     Image: String,
 }
@@ -27,6 +27,12 @@ const SearchComponent = ({ navigation, AddCart }: any) => {
 
     let searchdata: Food[] = data;
     console.log("Search", data)
+    const format = (price: number) => {
+        var money = '' + price;
+        return money.split('').reverse().reduce((prev, next, index) => {
+            return ((index % 3) ? next : (next + '.')) + prev
+        })
+    }
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row' }}>
@@ -61,7 +67,7 @@ const SearchComponent = ({ navigation, AddCart }: any) => {
                                 style={{ width: 70, height: 70, borderRadius: 10 }}></Image>
                             <View style={styles.sale}>
                                 <Text style={{ color: 'black', fontWeight: '700', fontSize: 16 }}>{item.Name}</Text>
-                                <Text>{item.Cost}</Text>
+                                <Text>{`${format(item.Cost)} VNĐ`}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', marginLeft: 50 }}>
                             </View>

@@ -38,18 +38,14 @@ const Login = ({ navigation }: any) => {
             })
         )
     }, [])
-    // if (AsynStore.CheckLogin() === null) {
-    //     console.log('Do not login', AsynStore.CheckLogin())
-    // }
-    // else {
-    //     navigation.replace('Main')
-    //     console.log('Do not login', AsynStore.CheckLogin())
-    // }
-    // }, [])
+
     useEffect(() => {
-        if (status === "Done") {
+        if (status === "user") {
             navigation.replace('Main')
             AsynStore.Login({ phone, pass })
+        }
+        if (status === "admin") {
+            navigation.navigate('Admin')
         }
         if (status === "Sai số điện thoại hoặc mật khẩu") {
             Alert.alert("Warning", status)
@@ -115,15 +111,20 @@ const Login = ({ navigation }: any) => {
                         <TouchableOpacity style={styles.loginBtn}
                             onPress={() => {
                                 let status = ''
-                                if (errors.PhoneNumber || errors.PassWord) {
-                                    Alert.alert('Error', 'Data is not valid')
+                                if (values.PhoneNumber == '' || values.PassWord == '') {
+                                    Alert.alert('Erro', 'Data null')
                                 }
                                 else {
-                                    clickLogin(values);
+                                    if (errors.PhoneNumber || errors.PassWord) {
+                                        Alert.alert('Error', 'Data is not valid')
+                                    }
+                                    else {
+                                        clickLogin(values);
+                                    }
                                 }
 
                             }}>
-                            <Text>REGISTER</Text>
+                            <Text>LOGIN</Text>
                         </TouchableOpacity>
 
                     </View>

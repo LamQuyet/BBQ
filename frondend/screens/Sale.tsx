@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Dimensions, FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import Search from '../components/Searchbar';
+// import Search from '../components/Searchbar';
 import category from '../API/category';
 import newDish from '../API/New';
 import axios from 'axios'
@@ -53,7 +53,7 @@ const Sale = ({ AddCart }: any) => {
     useEffect(() => {
         axios({
             method: 'GET',
-            url: 'http://10.0.2.2:3000/site/getsit',
+            url: 'http://192.168.0.102:3000/site/getsit',
             data: null
         })
             .then((res) => { setSale(res.data), console.log('res.data', res.data) })
