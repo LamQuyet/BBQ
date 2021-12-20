@@ -113,3 +113,21 @@ export const UpdateAccount = (phoneNumber: string, name: string, phone: string, 
         });
 
 }
+
+export const NewFood = (name: string, cost: number, category: string, image: string, setState?: any) => {
+    axios.post('http://192.168.0.102:3000/food/new', {
+        Name: name,
+        Cost: cost,
+        Category: category,
+        Image: image,
+    },
+    )
+        .then((res) => {
+            console.log(res.data)
+            setState(res.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+}

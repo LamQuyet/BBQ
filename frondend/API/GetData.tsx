@@ -30,6 +30,16 @@ export const getDrink = (setState: any) => {
         .catch(err => { console.log(err) })
 }
 
+export const getAllFood = (setState: any) => {
+    axios({
+        method: 'GET',
+        url: 'http://192.168.0.102:3000/food/getAll',
+        data: null
+    })
+        .then((res) => { setState(res.data), console.log('res.data', res.data) })
+        .catch(err => { console.log(err) })
+}
+
 export const getBill = (setState: any) => {
     axios({
         method: 'GET',

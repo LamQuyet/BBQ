@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     sale: {
         marginLeft: 10,
         alignItems: 'center',
-        width: 100
+        width: 150
 
     }
 })

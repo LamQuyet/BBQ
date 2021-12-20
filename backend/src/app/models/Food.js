@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const Food = new Schema({
-    _id: ObjectId,
     Name: String,
     Cost: Number,
     Category: String,

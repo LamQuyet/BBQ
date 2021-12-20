@@ -49,5 +49,29 @@ class FoodController {
             }
         })
     }
+
+    //GET all foods
+    getAll(req, res) {
+        Food.find({}, function (err, data) {
+            if (!err) {
+                res.json(data)
+            } else {
+                res.status(500).json({ error: "FAIL" })
+            }
+        })
+    }
+
+    //Add new food
+    NewFood(req, res) {
+        const food = new Food(req.body)
+        food.save(function (docs, err) {
+            if (err) {
+                res.send('added')
+            }
+            else {
+                res.send('error')
+            }
+        })
+    }
 }
 module.exports = new FoodController
