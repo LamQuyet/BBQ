@@ -9,6 +9,8 @@ router.use('/getDrink', foodController.getDrink)
 router.use('/getAll', foodController.getAll)
 router.post('/search', foodController.getSearch)
 router.post('/new', foodController.NewFood)
+router.post('/update', foodController.Update)
+router.post('/delete', foodController.Delete)
 // router.use('/search', foodController.Search)
 
 module.exports = router

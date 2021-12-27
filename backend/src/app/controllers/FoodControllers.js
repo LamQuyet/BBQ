@@ -69,7 +69,29 @@ class FoodController {
                 res.send('added')
             }
             else {
-                res.send('error')
+                res.send('add error')
+            }
+        })
+    }
+    async Update(req, res) {
+        Food.findOneAndUpdate({ Name: req.body.Search }, { $set: { Name: req.body.Name, Cost: req.body.Cost, Category: req.body.Category, Image: req.body.Image } }, { new: true }, function (err, docs) {
+            if (docs == null) {
+                res.send("Update Error")
+            }
+            else {
+                res.send('Updated')
+            }
+        })
+    }
+
+    async Delete(req, res) {
+        Food.findOneAndRemove({ Name: req.body.Name }, function (err, docs) {
+            if (docs === null) {
+                res.send("delete error")
+            }
+            else {
+                console.log(docs)
+                res.send('deleted')
             }
         })
     }

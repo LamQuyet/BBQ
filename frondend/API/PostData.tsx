@@ -131,3 +131,35 @@ export const NewFood = (name: string, cost: number, category: string, image: str
         });
 
 }
+export const UpdateFoods = (update: string, name: string, cost: number, category: string, image: string, setState?: any) => {
+    axios.post('http://192.168.0.102:3000/food/update', {
+        Search: update,
+        Name: name,
+        Cost: cost,
+        Category: category,
+        Image: image
+    },
+    )
+        .then((res) => {
+            console.log(res.data)
+            setState(res.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+}
+export const DeleteFoods = (name: string, setState: any) => {
+    axios.post('http://192.168.0.102:3000/food/delete', {
+        Name: name,
+    },
+    )
+        .then((res) => {
+            console.log(res.data)
+            setState(res.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+}

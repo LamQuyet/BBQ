@@ -50,6 +50,16 @@ export const getBill = (setState: any) => {
         .catch(err => { console.log(err) })
 }
 
+export const getHistory = (setState: any) => {
+    axios({
+        method: 'GET',
+        url: 'http://192.168.0.102:3000/bill/history',
+        data: null
+    })
+        .then((res) => { setState(res.data), console.log('res.data', res.data) })
+        .catch(err => { console.log(err) })
+}
+
 export const getAccount = (setState: any) => {
     axios({
         method: 'GET',

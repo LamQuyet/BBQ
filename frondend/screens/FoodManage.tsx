@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity, Modal, Button, Aler
 import { getAccount, getAllFood } from '../API/GetData';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { Picker } from '@react-native-picker/picker';
-import { DeleteAccount, NewFood, Register, UpdateAccount } from '../API/PostData';
+import { DeleteAccount, DeleteFoods, NewFood, Register, UpdateAccount, UpdateFoods } from '../API/PostData';
 import Swipeout from 'react-native-swipeout';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
@@ -33,7 +33,7 @@ const FoodManage = () => {
     }, [])
 
     useEffect(() => {
-        if (status == 'Error') {
+        if (status == 'add error') {
             ToastAndroid.show('Error', ToastAndroid.SHORT)
         }
         if (status == 'added') {
@@ -45,11 +45,11 @@ const FoodManage = () => {
         if (status == 'Updated') {
             ToastAndroid.show('Updated', ToastAndroid.SHORT)
         }
-        if (status == 'Đăng kí thành công') {
-            ToastAndroid.show('Registed', ToastAndroid.SHORT)
+        if (status == 'deleted') {
+            ToastAndroid.show('Deleted', ToastAndroid.SHORT)
         }
-        if (status == 'Số điện thoại đã được dùng') {
-            ToastAndroid.show('Register Error', ToastAndroid.SHORT)
+        if (status == 'delete error') {
+            ToastAndroid.show('Delete Error', ToastAndroid.SHORT)
         }
     }, [status])
 
@@ -66,21 +66,21 @@ const FoodManage = () => {
         {
             backgroundColor: 'green',
             onPress: () => {
-                // setname(Foods[index].Name)
-                // setPhone(Foods[index].Cost)
-                // setPass(Account[index].Password)
-                // setSelectedValue(Account[index].Type)
-                // setModalVisible(true)
-                // setTypeModal('edit')
-                // setUpdate(Account[index].PhoneNumber)
+                setname(Foods[index].Name)
+                setCost(Foods[index].Cost.toString())
+                setSelectedValue(Foods[index].Category)
+                setImage(Foods[index].Image)
+                setModalVisible(true)
+                setTypeModal('edit')
+                setUpdate(Foods[index].Name)
             },
             text: 'Edit',
         },
         {
             backgroundColor: 'red',
             onPress: async () => {
-                // await DeleteAccount(Account[index].PhoneNumber, setStatus)
-                // getAccount(setAccount);
+                await DeleteFoods(Foods[index].Name, setStatus)
+                getAllFood(setFoods)
             },
             text: 'Delete',
         },
@@ -164,7 +164,7 @@ const FoodManage = () => {
                                             ToastAndroid.show('Added', ToastAndroid.SHORT)
                                         }
                                         if (typeModal == 'edit') {
-                                            // await NewFood(update, name, cost, image, selectedValue, setStatus)
+                                            await UpdateFoods(update, name, parseInt(cost), selectedValue, image, setStatus)
                                             setUpdate('')
                                             setModalVisible(!modalVisible)
                                             // ToastAndroid.show('edited', ToastAndroid.LONG)

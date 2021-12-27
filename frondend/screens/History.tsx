@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput, Dimensions } from 'react-native'
-import { getBill } from '../API/GetData'
+import { getBill, getHistory } from '../API/GetData'
 
 interface Bill {
     _id: Object,
@@ -18,7 +18,7 @@ const History = () => {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        getBill(setData)
+        getHistory(setData)
     })
 
     let bills: Bill[] = data;
