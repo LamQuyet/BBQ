@@ -18,7 +18,7 @@ const Waiting = () => {
 
     useEffect(() => {
         getBill(setData)
-    })
+    }, [])
 
     let bills: Bill[] = data;
 

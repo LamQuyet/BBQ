@@ -7,6 +7,8 @@ import DrawerTab from "./Drawer";
 import Admin from "../screens/Admin";
 import AdmAccount from "../screens/AccountAdmin";
 import FoodManage from "../screens/FoodManage";
+import Chart from "../screens/Chart";
+import Order from "../screens/Order";
 
 const Stack = createStackNavigator();
 
@@ -18,7 +20,7 @@ const MainStack = () => {
         >
             <Stack.Screen name="LoginStack" component={LoginRegister} />
             <Stack.Screen name="Main" component={DrawerTab} />
-            <Stack.Screen name="Admin" component={FoodManage} />
+            <Stack.Screen name="Admin" component={Order} />
         </Stack.Navigator>
     )
 }
