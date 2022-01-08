@@ -163,3 +163,26 @@ export const DeleteFoods = (name: string, setState: any) => {
         });
 
 }
+
+export const AcceptBill = (id: Object, account: string, name: string, addres: string, phone: string, foods: [], totalprice: number, status: string, time: Date, setState?: any) => {
+    axios.post('http://192.168.0.102:3000/bill/accept', {
+        id: id,
+        Account: account,
+        Name: name,
+        Addres: addres,
+        PhoneNumber: phone,
+        Foods: foods,
+        TotalPrice: totalprice,
+        Status: status,
+        Time: time
+    },
+    )
+        .then((res) => {
+            console.log(res.data)
+            setState(res.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+}

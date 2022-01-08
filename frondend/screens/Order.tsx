@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput, Dimensions, Button, TouchableWithoutFeedback, Modal, Picker, Pressable, ToastAndroid } from 'react-native'
-import { getBill } from '../API/GetData'
+import { getBill, getNewBill } from '../API/GetData'
+import { AcceptBill } from '../API/PostData'
 
 interface Bill {
     _id: Object,
@@ -16,36 +17,36 @@ interface Bill {
         price: number
     }],
     TotalPrice: number,
-    Status: Boolean,
+    Status: string,
     Time: Date
 }
 const Order = () => {
     const [data, setData] = useState([])
     const [modalVisible, setModalVisible] = useState(false);
-    const [index, setIndex] = useState(0)
     const [descreption, setDescription] = useState<any>(null)
+    const [id, setId] = useState({})
+    const [account, setAccount] = useState('')
+    const [name, setName] = useState('')
+    const [addres, setAddres] = useState('')
+    const [phone, setPhone] = useState('')
+    const [foods, setFoods] = useState<any>()
+    const [totalprice, setTotalprice] = useState(0)
+    const [time, setTime] = useState<any>(null)
 
 
     useEffect(() => {
-        getBill(setData)
+        getNewBill(setData)
     }, [])
 
     let bills: Bill[] = data;
 
-    // useEffect(() => {
-    //     if (bills) {
-    //         setDescription(bills[index].Foods)
-    //     }
-    // }, [bills])
-
-    // let food: [] = bills.Foods
-    console.log("DATA", bills)
     const format = (price: number) => {
         var money = '' + price;
         return money.split('').reverse().reduce((prev, next, index) => {
             return ((index % 3) ? next : (next + '.')) + prev
         })
     }
+
     return (
         <View style={styles.container}>
             <View style={styles.hearder}>
@@ -60,14 +61,26 @@ const Order = () => {
                     renderItem={({ item, index }) => {
                         return (
                             <View >
-                                <TouchableOpacity onPress={() => { setDescription(bills[index].Foods), setModalVisible(!modalVisible) }}>
+                                <TouchableOpacity onPress={() => {
+                                    setDescription(bills[index].Foods)
+                                    setModalVisible(!modalVisible)
+                                    setId(item._id)
+                                    setAccount(item.Account)
+                                    setName(item.Name)
+                                    setAddres(item.Addres)
+                                    setPhone(item.PhoneNumber)
+                                    setFoods(item.Foods)
+                                    setTotalprice(item.TotalPrice)
+                                    setTime(item.Time)
+                                    console.log(item.Time)
+                                }}>
                                     <View style={styles.flatlist}>
                                         <View style={{}}>
                                             <Text>{item.Name}</Text>
                                             <Text>{item.Addres}</Text>
                                             <Text>{item.PhoneNumber}</Text>
                                             <Text>{`${format(item.TotalPrice)} VNĐ`}</Text>
-                                            <Text>{item.Time}</Text>
+                                            <Text>{new Date(`${item.Time}`).toISOString().slice(0, 16).replace("T", ' ')}</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -116,12 +129,22 @@ const Order = () => {
                                     }}>
                                 </FlatList>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={async () => {
+                                        await AcceptBill(id, account, name, addres, phone, foods, totalprice, 'Processing', time)
+                                        setModalVisible(!modalVisible)
+                                        getNewBill(setData)
+
+                                    }}>
                                         <View style={{ backgroundColor: 'orange', borderRadius: 10, width: 80, height: 50, alignItems: 'center', justifyContent: 'center' }}>
                                             <Text>Accept</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={async () => {
+                                        await AcceptBill(id, account, name, addres, phone, foods, totalprice, 'canceled', time)
+                                        setModalVisible(!modalVisible)
+                                        getNewBill(setData)
+
+                                    }}>
                                         <View style={{ backgroundColor: '#E8E8E8', borderRadius: 10, width: 80, height: 50, alignItems: 'center', justifyContent: 'center' }}>
                                             <Text>Reject</Text>
                                         </View>

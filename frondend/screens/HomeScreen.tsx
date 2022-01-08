@@ -91,7 +91,6 @@ const Home = ({ navigation, AddCart, GetData }: any) => {
                         </FlatList>
                     </View>
                     <View style={{ flex: 7 }}>
-                        {/* <ScrollView> */}
                         <FlatList horizontal={false}
                             showsHorizontalScrollIndicator={false}
                             data={Food}
@@ -111,14 +110,13 @@ const Home = ({ navigation, AddCart, GetData }: any) => {
                                         </View>
                                         <View style={{ marginBottom: 10 }}>
                                             <TouchableOpacity onPress={() => AddCart(item)}>
-                                                <Icon name='cart-plus' size={30} color='orange'></Icon>
+                                                <Icon name='cart-plus' size={25} color='orange'></Icon>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
                                 )
                             }}>
                         </FlatList>
-                        {/* </ScrollView> */}
                     </View>
                 </View>
             </View>

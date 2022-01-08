@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput, Dimensions, TouchableWithoutFeedback, Modal } from 'react-native'
-import { getBill, getHistory } from '../API/GetData'
+import { getBill, getBillCanceled, getHistory } from '../API/GetData'
 
 interface Bill {
     _id: Object,
@@ -14,13 +14,13 @@ interface Bill {
     Time: Date
 }
 
-const History = () => {
+const Canceled = () => {
     const [data, setData] = useState([])
     const [modalVisible, setModalVisible] = useState(false);
     const [descreption, setDescription] = useState<any>(null)
 
     useEffect(() => {
-        getHistory(setData)
+        getBillCanceled(setData)
     }, [])
 
     let bills: Bill[] = data;
@@ -103,7 +103,7 @@ const History = () => {
         </View>
     )
 }
-export default History
+export default Canceled
 
 const styles = StyleSheet.create({
     container: {
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     },
     ps: {
         marginRight: 10,
-        color: 'green'
+        color: 'red'
     },
     modalView: {
         margin: 20,

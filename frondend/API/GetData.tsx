@@ -50,6 +50,26 @@ export const getBill = (setState: any) => {
         .catch(err => { console.log(err) })
 }
 
+export const getNewBill = (setState: any) => {
+    axios({
+        method: 'GET',
+        url: 'http://192.168.0.102:3000/bill/newbills',
+        data: null
+    })
+        .then((res) => { setState(res.data), console.log('res.data', res.data) })
+        .catch(err => { console.log(err) })
+}
+
+export const getBillCanceled = (setState: any) => {
+    axios({
+        method: 'GET',
+        url: 'http://192.168.0.102:3000/bill/billscanceled',
+        data: null
+    })
+        .then((res) => { setState(res.data), console.log('res.data', res.data) })
+        .catch(err => { console.log(err) })
+}
+
 export const getHistory = (setState: any) => {
     axios({
         method: 'GET',

@@ -20,7 +20,7 @@ const MainStack = () => {
         >
             <Stack.Screen name="LoginStack" component={LoginRegister} />
             <Stack.Screen name="Main" component={DrawerTab} />
-            <Stack.Screen name="Admin" component={Order} />
+            <Stack.Screen name="Admin" component={Chart} />
         </Stack.Navigator>
     )
 }
