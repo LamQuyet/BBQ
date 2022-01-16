@@ -8,5 +8,6 @@ router.use('/history', billController.History)
 router.use('/newbills', billController.getNewBills)
 router.use('/billscanceled', billController.getCanceledBills)
 router.post('/accept', billController.Update)
+router.use('/today', billController.BillsToday)
 
 module.exports = router

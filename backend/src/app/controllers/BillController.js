@@ -1,5 +1,8 @@
 const Bill = require('../models/Bill')
 
+const Today = Date.now()
+const date = new Date(Today).toISOString().slice(0, 4)
+
 class BillController {
     async Order(req, res) {
         var bill = new Bill(req.body)
@@ -62,6 +65,18 @@ class BillController {
             else {
                 console.log(docs)
                 res.send('Updated')
+            }
+        })
+    }
+
+    BillsToday(req, res) {
+        console.log(new Date(Today).toISOString().slice(0, 10))
+        Bill.find({ Time: new Date(date) }, function (err, data) {
+            if (!err) {
+                res.json(data)
+            }
+            else {
+                res.status(500).json({ error: 'FAIL' })
             }
         })
     }
