@@ -61,17 +61,6 @@ const Sale = ({ AddCart }: any) => {
 
     }, [])
 
-    // useEffect(() => {
-    //     axios({
-    //         method: 'GET',
-    //         url: 'http://10.0.2.2:3000/food/getAllFood',
-    //         data: null
-    //     })
-    //         .then((res) => { setSale(res.data) })
-    //         .catch(err => { console.log(err) })
-
-    // }, [])
-
     let saleData: Sale[] = sale;
     let newfood: Food[] = newFood;
 
