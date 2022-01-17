@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet, ImageBackground} from 'react-native';
 import {
   LineChart,
   BarChart,
@@ -57,67 +57,141 @@ const Chart = () => {
     legend: ['7 Days'],
   };
 
+  // const data = {
+  //   labels: ['BBQ', 'Hotpot', 'Drink'], // optional
+  //   data: [0.8, 0.6, 0.4],
+  // };
+
+  const data = [
+    {
+      name: 'BBQ',
+      population: 6600000,
+      color: 'rgba(131, 167, 234, 1)',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
+    },
+    {
+      name: 'Hotpot',
+      population: 6100000,
+      color: 'orange',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
+    },
+    {
+      name: 'Drink',
+      population: 2300000,
+      color: '#F00',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
+    },
+  ];
+
+  const today = new Date();
+
   return (
-    <View>
-      <View style={{backgroundColor: '#1c1c1c'}}>
-        <BarChart
-          yAxisInterval={5}
-          showValuesOnTopOfBars
-          horizontalLabelRotation={1}
-          yAxisSuffix=""
-          style={{}}
-          data={databar}
-          width={screenWidth}
-          height={250}
-          yAxisLabel=""
-          // chartConfig={chartConfig}
-          verticalLabelRotation={30}
-          chartConfig={{
-            decimalPlaces: 3,
-            backgroundGradientFrom: '#1E2923',
-            backgroundGradientFromOpacity: 0,
-            backgroundGradientTo: '#08130D',
-            backgroundGradientToOpacity: 0.5,
-            color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-            // decimaPlaces: 0,
-            strokeWidth: 3, // optional, default 3
-            barPercentage: 0.5,
-            useShadowColorFromDataset: false,
-          }}
-          yLabelsOffset={0}></BarChart>
+    <View style={{flex: 1}}>
+      <View
+        style={{
+          flex: 0.2,
+          borderRadius: 10,
+          marginVertical: 2,
+          marginHorizontal: 2,
+          justifyContent: 'center',
+        }}>
+        <ImageBackground
+          source={require('../images/background3.jpg')}
+          style={{width: '100%', height: '100%', justifyContent: 'center'}}
+          imageStyle={{borderBottomRightRadius: 50}}>
+          <View style={{marginLeft: 30}}>
+            <Text style={styles.lable}>Income today</Text>
+            <Text style={styles.income}>15.000.000đ</Text>
+          </View>
+        </ImageBackground>
       </View>
-      <View style={{alignItems: 'center', marginBottom: 30}}>
-        <Text style={{fontSize: 15, color: 'black'}}>
-          Income statement for the year
-        </Text>
-      </View>
-      <View style={{backgroundColor: '#1c1c1c'}}>
-        <LineChart
-          yAxisInterval={5}
-          horizontalLabelRotation={1}
-          yAxisSuffix=""
-          style={{}}
-          data={dataline}
-          width={screenWidth}
-          height={250}
-          yAxisLabel=""
-          // chartConfig={chartConfig}
-          verticalLabelRotation={30}
-          chartConfig={{
-            decimalPlaces: 3,
-            backgroundGradientFrom: '#1E2923',
-            backgroundGradientFromOpacity: 0,
-            backgroundGradientTo: '#08130D',
-            backgroundGradientToOpacity: 0.5,
-            color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-            // decimaPlaces: 0,
-            strokeWidth: 3, // optional, default 3
-            barPercentage: 0.5,
-            useShadowColorFromDataset: false,
-          }}
-          yLabelsOffset={0}></LineChart>
+      <View style={{flex: 0.8}}>
+        <View style={{flex: 0.1, marginTop: 20, marginHorizontal: 10}}>
+          <Text style={styles.today}>{`${today.getDate()} - ${
+            today.getMonth() + 1
+          } - ${today.getUTCFullYear()}`}</Text>
+        </View>
+        <View style={{backgroundColor: '#1c1c1c', flex: 0.5}}>
+          <PieChart
+            data={data}
+            width={screenWidth}
+            height={250}
+            chartConfig={chartConfig}
+            accessor={'population'}
+            backgroundColor={'transparent'}
+            paddingLeft={'15'}
+            center={[10, 10]}
+            // absolute
+          />
+        </View>
+        <View style={{flex: 0.3, marginHorizontal: 10}}>
+          <Text style={styles.today}>Details</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 5,
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(131, 167, 234, 1)',
+                width: 190,
+                height: 60,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text style={styles.detailLable}>BBQ</Text>
+              <Text>6.600.000đ</Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: 'orange',
+                width: 190,
+                height: 60,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text style={styles.detailLable}>Hotpot</Text>
+              <Text>6.100.000đ</Text>
+            </View>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <View
+              style={{
+                backgroundColor: '#F00',
+                width: 190,
+                height: 60,
+                marginTop: 5,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text style={styles.detailLable}>Hotpot</Text>
+              <Text>6.100.000đ</Text>
+            </View>
+          </View>
+        </View>
       </View>
     </View>
   );
 };
 export default Chart;
+
+const styles = StyleSheet.create({
+  lable: {
+    color: 'white',
+    fontSize: 23,
+  },
+  income: {
+    color: 'white',
+    fontSize: 35,
+  },
+  today: {
+    fontSize: 25,
+  },
+  detailLable: {
+    fontSize: 20,
+  },
+});
