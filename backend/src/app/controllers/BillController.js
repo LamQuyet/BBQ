@@ -1,7 +1,6 @@
 const Bill = require('../models/Bill')
 
-const Today = Date.now()
-const date = new Date(Today).toISOString().slice(0, 4)
+const Today = new Date().toISOString()
 
 class BillController {
     async Order(req, res) {
@@ -70,8 +69,33 @@ class BillController {
     }
 
     BillsToday(req, res) {
-        console.log(new Date(Today).toISOString().slice(0, 10))
-        Bill.find({ Time: new Date(date) }, function (err, data) {
+        console.log(req.body.Time)
+        Bill.find({ '$where': `this.Time.toJSON().slice(0, 10) == '${req.body.Time}'` } , function (err, data) {
+            if (!err) {
+                res.json(data)
+            }
+            else {
+                res.status(500).json({ error: 'FAIL' })
+            }
+        })
+    }
+
+    ThisMonthBills(req, res) {
+        console.log(Today)
+        Bill.find({ '$where': `this.Time.toJSON().slice(0, 7) == '${String(Today.slice(0, 7))}'` } , function (err, data) {
+            if (!err) {
+                res.json(data)
+            }
+            else {
+                res.status(500).json({ error: 'FAIL' })
+            }
+        })
+    }
+
+    BillsYear(req, res) {
+        console.log(Today.slice(0, 7))
+        Bill.find({ '$where': `this.Time.toJSON().slice(0, 4) == '${String(Today.slice(0, 4))}'` } , function (err, data) {
+            
             if (!err) {
                 res.json(data)
             }

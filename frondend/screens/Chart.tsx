@@ -1,5 +1,13 @@
-import React from 'react';
-import {View, Text, StyleSheet, ImageBackground} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  Platform,
+  Button,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {
   LineChart,
   BarChart,
@@ -9,9 +17,125 @@ import {
   StackedBarChart,
 } from 'react-native-chart-kit';
 import {Dimensions} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {Statistical} from '../API/PostData';
+
 const screenWidth = Dimensions.get('window').width;
 
+interface Bill {
+  _id: Object;
+  Account: string;
+  Name: string;
+  Addres: string;
+  PhoneNumber: string;
+  Foods: [
+    {
+      _id: Object;
+      quantity: number;
+      name: string;
+      image: string;
+      category: string;
+      price: number;
+    },
+  ];
+  TotalPrice: number;
+  Status: string;
+  Time: Date;
+}
+
+interface Food {
+  _id: Object;
+  quantity: number;
+  name: string;
+  image: string;
+  category: string;
+  price: number;
+}
+
 const Chart = () => {
+  const [data, setData] = useState([]);
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState<any>('date');
+  const [show, setShow] = useState(false);
+  const [income, setIncome] = useState(0);
+  const [foods, setFoods] = useState([]);
+  const [bbq, setBBQ] = useState(0);
+  const [hotpot, setHotpot] = useState(0);
+  const [drink, setDrink] = useState(0);
+
+  const onChange = async (event: any, selectedDate: any) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    await setDate(currentDate);
+    console.log(currentDate);
+    Statistical(currentDate.toISOString().slice(0, 10), setData);
+  };
+
+  const format = (price: number) => {
+    var money = '' + price;
+    return money
+      .split('')
+      .reverse()
+      .reduce((prev, next, index) => {
+        return (index % 3 ? next : next + '.') + prev;
+      });
+  };
+
+  const showMode = (currentMode: any) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
+
+  useEffect(() => {
+    Statistical(date.toISOString().slice(0, 10), setData);
+  }, []);
+
+  useEffect(() => {
+    let Income: number = 0;
+    let foods: any = [];
+    if (data == null) {
+      Income = 0;
+    } else {
+      data.forEach(
+        (bill: Bill) => ((Income += bill.TotalPrice), foods.push(bill.Foods)),
+      );
+    }
+    setIncome(Income);
+    setFoods(foods[0]);
+  }, [data]);
+
+  useEffect(() => {
+    let bbq: any = 0;
+    let hotpot: any = 0;
+    let drink: any = 0;
+    if (foods != undefined) {
+      foods.forEach((food: any) => {
+        if (food.category == 'BBQ') {
+          bbq += food.price * food.quantity;
+        }
+        if (food.category == 'Hotpot') {
+          hotpot += food.price * food.quantity;
+        }
+        if (food.category == 'Drink') {
+          drink += food.price * food.quantity;
+        }
+      });
+    } else {
+      setFoods([]);
+    }
+    setBBQ(bbq);
+    setHotpot(hotpot);
+    setDrink(drink);
+  }, [foods]);
+
   const chartConfig = {
     backgroundGradientFrom: '#1E2923',
     backgroundGradientFromOpacity: 0,
@@ -24,69 +148,30 @@ const Chart = () => {
     useShadowColorFromDataset: false,
     // optional
   };
-  const databar = {
-    labels: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ],
-    datasets: [
-      {
-        data: [220, 45, 28, 80, 99, 43, 72, 89, 71, 120, 31, 200],
-      },
-    ],
-    legend: ['Rainy Days'],
-  };
 
-  const dataline = {
-    labels: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
-    datasets: [
-      {
-        data: [60, 45, 28, 80, 99, 43, 72],
-      },
-    ],
-    legend: ['7 Days'],
-  };
-
-  // const data = {
-  //   labels: ['BBQ', 'Hotpot', 'Drink'], // optional
-  //   data: [0.8, 0.6, 0.4],
-  // };
-
-  const data = [
+  const dataChart = [
     {
       name: 'BBQ',
-      population: 6600000,
+      population: bbq,
       color: 'rgba(131, 167, 234, 1)',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Hotpot',
-      population: 6100000,
+      population: hotpot,
       color: 'orange',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
       name: 'Drink',
-      population: 2300000,
+      population: drink,
       color: '#F00',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
   ];
-
-  const today = new Date();
 
   return (
     <View style={{flex: 1}}>
@@ -104,19 +189,36 @@ const Chart = () => {
           imageStyle={{borderBottomRightRadius: 50}}>
           <View style={{marginLeft: 30}}>
             <Text style={styles.lable}>Income today</Text>
-            <Text style={styles.income}>15.000.000đ</Text>
+            <Text style={styles.income}>{`${format(income)} VNĐ`}</Text>
           </View>
         </ImageBackground>
       </View>
       <View style={{flex: 0.8}}>
         <View style={{flex: 0.1, marginTop: 20, marginHorizontal: 10}}>
-          <Text style={styles.today}>{`${today.getDate()} - ${
-            today.getMonth() + 1
-          } - ${today.getUTCFullYear()}`}</Text>
+          <TouchableWithoutFeedback
+            onPress={() => {
+              showDatepicker();
+            }}>
+            <Text style={styles.today}>
+              {`${date.getDate()} - ${
+                date.getMonth() + 1
+              } - ${date.getFullYear()}`}
+            </Text>
+          </TouchableWithoutFeedback>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              is24Hour={true}
+              display="calendar"
+              onChange={onChange}
+            />
+          )}
         </View>
         <View style={{backgroundColor: '#1c1c1c', flex: 0.5}}>
           <PieChart
-            data={data}
+            data={dataChart}
             width={screenWidth}
             height={250}
             chartConfig={chartConfig}
@@ -144,7 +246,7 @@ const Chart = () => {
                 justifyContent: 'center',
               }}>
               <Text style={styles.detailLable}>BBQ</Text>
-              <Text>6.600.000đ</Text>
+              <Text>{`${format(bbq)} VNĐ`}</Text>
             </View>
             <View
               style={{
@@ -155,7 +257,7 @@ const Chart = () => {
                 justifyContent: 'center',
               }}>
               <Text style={styles.detailLable}>Hotpot</Text>
-              <Text>6.100.000đ</Text>
+              <Text>{`${format(hotpot)} VNĐ`}</Text>
             </View>
           </View>
           <View style={{alignItems: 'center'}}>
@@ -169,7 +271,7 @@ const Chart = () => {
                 justifyContent: 'center',
               }}>
               <Text style={styles.detailLable}>Hotpot</Text>
-              <Text>6.100.000đ</Text>
+              <Text>{`${format(drink)} VNĐ`}</Text>
             </View>
           </View>
         </View>
@@ -189,7 +291,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
   },
   today: {
-    fontSize: 25,
+    fontSize: 22,
   },
   detailLable: {
     fontSize: 20,

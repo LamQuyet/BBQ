@@ -25,6 +25,7 @@ const todoProduct = (state = initProduct, action) => {
                     quantity: 1,
                     name: action.payload.Name,
                     image: action.payload.Image,
+                    category: action.payload.Category,
                     price: action.payload.Cost
                 }
                 state.Carts.push(cart);
@@ -43,6 +44,7 @@ const todoProduct = (state = initProduct, action) => {
                         quantity: 1,
                         name: action.payload.Name,
                         image: action.payload.Image,
+                        category: action.payload.Category,
                         price: action.payload.Cost
                     }
                     state.Carts.push(_cart);

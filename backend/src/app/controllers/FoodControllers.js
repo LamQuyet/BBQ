@@ -90,7 +90,6 @@ class FoodController {
                 res.send("delete error")
             }
             else {
-                console.log(docs)
                 res.send('deleted')
             }
         })
