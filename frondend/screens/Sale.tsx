@@ -66,7 +66,7 @@ const Sale = ({AddCart}: any) => {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: 'http://192.168.0.102:3000/site/getsit',
+      url: 'http://192.168.1.9:3000/site/getsit',
       data: null,
     })
       .then(res => {

@@ -3,7 +3,7 @@ import {Alert} from 'react-native';
 
 export const Search = async (text: String, setState: any) => {
   axios
-    .post('http://192.168.1.4:3000/food/search', {
+    .post('http://192.168.1.9:3000/food/search', {
       search: text,
     })
     .then(function (response) {
@@ -36,7 +36,7 @@ export const Register = (
   setState?: any,
 ) => {
   axios
-    .post('http://192.168.1.4:3000/account/register', {
+    .post('http://192.168.1.9:3000/account/register', {
       Name: name,
       PhoneNumber: phonenumber,
       Password: password,
@@ -52,7 +52,7 @@ export const Register = (
 
 export const Login = (phonenumber: String, password: any, setState: any) => {
   axios
-    .post('http://192.168.1.4:3000/account/login', {
+    .post('http://192.168.1.9:3000/account/login', {
       PhoneNumber: phonenumber,
       Password: password,
     })
@@ -73,7 +73,7 @@ export const Order = (
   totalprice: number,
 ) => {
   axios
-    .post('http://192.168.1.4:3000/bill/order', {
+    .post('http://192.168.1.9:3000/bill/order', {
       Account: account,
       Name: name,
       Addres: address,
@@ -91,7 +91,7 @@ export const Order = (
 
 export const DeleteAccount = (phone: string, setState: any) => {
   axios
-    .post('http://192.168.1.4:3000/account/deleteAccount', {
+    .post('http://192.168.1.9:3000/account/deleteAccount', {
       PhoneNumber: phone,
     })
     .then(res => {
@@ -112,7 +112,7 @@ export const UpdateAccount = (
   setState?: any,
 ) => {
   axios
-    .post('http://192.168.1.4:3000/account/updateAccount', {
+    .post('http://192.168.1.9:3000/account/updateAccount', {
       phone: phoneNumber,
       Name: name,
       PhoneNumber: phone,
@@ -136,7 +136,7 @@ export const NewFood = (
   setState?: any,
 ) => {
   axios
-    .post('http://192.168.1.4:3000/food/new', {
+    .post('http://192.168.1.9:3000/food/new', {
       Name: name,
       Cost: cost,
       Category: category,
@@ -159,7 +159,7 @@ export const UpdateFoods = (
   setState?: any,
 ) => {
   axios
-    .post('http://192.168.1.4:3000/food/update', {
+    .post('http://192.168.1.9:3000/food/update', {
       Search: update,
       Name: name,
       Cost: cost,
@@ -176,7 +176,7 @@ export const UpdateFoods = (
 };
 export const DeleteFoods = (name: string, setState: any) => {
   axios
-    .post('http://192.168.1.4:3000/food/delete', {
+    .post('http://192.168.1.9:3000/food/delete', {
       Name: name,
     })
     .then(res => {
@@ -201,7 +201,7 @@ export const AcceptBill = (
   setState?: any,
 ) => {
   axios
-    .post('http://192.168.1.4:3000/bill/accept', {
+    .post('http://192.168.1.9:3000/bill/accept', {
       id: id,
       Account: account,
       Name: name,
@@ -223,11 +223,10 @@ export const AcceptBill = (
 
 export const Statistical = (time: any, setState?: any) => {
   axios
-    .post('http://192.168.1.4:3000/bill/day', {
+    .post('http://192.168.1.9:3000/bill/day', {
       Time: time,
     })
     .then(res => {
-      console.log(res.data);
       setState(res.data);
     })
     .catch(function (error) {

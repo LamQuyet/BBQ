@@ -52,7 +52,7 @@ interface Food {
   price: number;
 }
 
-const Chart = () => {
+const Chart = ({navigation}: any) => {
   const [data, setData] = useState([]);
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState<any>('date');
@@ -109,7 +109,7 @@ const Chart = () => {
       );
     }
     setIncome(Income);
-    setFoods(foods[0]);
+    setFoods(foods);
   }, [data]);
 
   useEffect(() => {
@@ -118,15 +118,17 @@ const Chart = () => {
     let drink: any = 0;
     if (foods != undefined) {
       foods.forEach((food: any) => {
-        if (food.category == 'BBQ') {
-          bbq += food.price * food.quantity;
-        }
-        if (food.category == 'Hotpot') {
-          hotpot += food.price * food.quantity;
-        }
-        if (food.category == 'Drink') {
-          drink += food.price * food.quantity;
-        }
+        food.forEach((e: any) => {
+          if (e.category == 'BBQ') {
+            bbq += e.price * e.quantity;
+          }
+          if (e.category == 'Hotpot') {
+            hotpot += e.price * e.quantity;
+          }
+          if (e.category == 'Drink') {
+            drink += e.price * e.quantity;
+          }
+        });
       });
     } else {
       setFoods([]);
@@ -177,23 +179,40 @@ const Chart = () => {
     <View style={{flex: 1}}>
       <View
         style={{
-          flex: 0.2,
-          borderRadius: 10,
-          marginVertical: 2,
-          marginHorizontal: 2,
-          justifyContent: 'center',
+          flex: 0.25,
+          marginTop: 10,
+          marginHorizontal: 10,
+          justifyContent: 'space-between',
+          backgroundColor: '#F0FFF0',
+          flexDirection: 'row',
+          borderBottomRightRadius: 50,
+          borderTopLeftRadius: 50,
+          alignItems: 'center',
+          elevation: 10,
         }}>
-        <ImageBackground
-          source={require('../images/background3.jpg')}
-          style={{width: '100%', height: '100%', justifyContent: 'center'}}
-          imageStyle={{borderBottomRightRadius: 50}}>
-          <View style={{marginLeft: 30}}>
-            <Text style={styles.lable}>Income today</Text>
-            <Text style={styles.income}>{`${format(income)} VNĐ`}</Text>
+        <View
+          style={[
+            styles.lableWrap,
+            {backgroundColor: '#00B2BF', marginLeft: '5%'},
+          ]}>
+          <Text style={styles.lable}>Income</Text>
+          <Text style={styles.income}>{`${format(income)} VNĐ`}</Text>
+        </View>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            navigation.navigate('Bills', {data: data});
+          }}>
+          <View
+            style={[
+              styles.lableWrap,
+              {backgroundColor: '#FF9900', marginRight: '5%'},
+            ]}>
+            <Text style={styles.lable}>Bills</Text>
+            <Text style={styles.income}>{data.length}</Text>
           </View>
-        </ImageBackground>
+        </TouchableWithoutFeedback>
       </View>
-      <View style={{flex: 0.8}}>
+      <View style={{flex: 0.75}}>
         <View style={{flex: 0.1, marginTop: 20, marginHorizontal: 10}}>
           <TouchableWithoutFeedback
             onPress={() => {
@@ -283,17 +302,25 @@ export default Chart;
 
 const styles = StyleSheet.create({
   lable: {
-    color: 'white',
-    fontSize: 23,
+    color: 'black',
+    fontSize: 16,
   },
   income: {
-    color: 'white',
-    fontSize: 35,
+    color: 'black',
+    fontSize: 20,
   },
   today: {
     fontSize: 22,
   },
   detailLable: {
     fontSize: 20,
+  },
+  lableWrap: {
+    borderTopLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '40%',
+    height: '50%',
   },
 });

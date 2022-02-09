@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getHotpot = (setState: any) => {
   axios({
     method: 'GET',
-    url: 'http://192.168.1.4:3000/food/getHotpot',
+    url: 'http://192.168.1.9:3000/food/getHotpot',
     data: null,
   })
     .then(res => {
@@ -17,7 +17,7 @@ export const getHotpot = (setState: any) => {
 export const getBBQ = (setState: any) => {
   axios({
     method: 'GET',
-    url: 'http://192.168.1.4:3000/food/getBBQ',
+    url: 'http://192.168.1.9:3000/food/getBBQ',
     data: null,
   })
     .then(res => {
@@ -31,7 +31,7 @@ export const getBBQ = (setState: any) => {
 export const getDrink = (setState: any) => {
   axios({
     method: 'GET',
-    url: 'http://192.168.1.4:3000/food/getDrink',
+    url: 'http://192.168.1.9:3000/food/getDrink',
     data: null,
   })
     .then(res => {
@@ -45,7 +45,7 @@ export const getDrink = (setState: any) => {
 export const getAllFood = (setState: any) => {
   axios({
     method: 'GET',
-    url: 'http://192.168.1.4:3000/food/getAll',
+    url: 'http://192.168.1.9:3000/food/getAll',
     data: null,
   })
     .then(res => {
@@ -59,7 +59,7 @@ export const getAllFood = (setState: any) => {
 export const getBill = (setState: any) => {
   axios({
     method: 'GET',
-    url: 'http://192.168.1.4:3000/bill/getbill',
+    url: 'http://192.168.1.9:3000/bill/getbill',
     data: null,
   })
     .then(res => {
@@ -73,7 +73,7 @@ export const getBill = (setState: any) => {
 export const getNewBill = (setState: any) => {
   axios({
     method: 'GET',
-    url: 'http://192.168.1.4:3000/bill/newbills',
+    url: 'http://192.168.1.9:3000/bill/newbills',
     data: null,
   })
     .then(res => {
@@ -87,7 +87,7 @@ export const getNewBill = (setState: any) => {
 export const getBillCanceled = (setState: any) => {
   axios({
     method: 'GET',
-    url: 'http://192.168.1.4:3000/bill/billscanceled',
+    url: 'http://192.168.1.9:3000/bill/billscanceled',
     data: null,
   })
     .then(res => {
@@ -101,7 +101,7 @@ export const getBillCanceled = (setState: any) => {
 export const getHistory = (setState: any) => {
   axios({
     method: 'GET',
-    url: 'http://192.168.1.4:3000/bill/history',
+    url: 'http://192.168.1.9:3000/bill/history',
     data: null,
   })
     .then(res => {
@@ -115,7 +115,7 @@ export const getHistory = (setState: any) => {
 export const getAccount = (setState: any) => {
   axios({
     method: 'GET',
-    url: 'http://192.168.1.4:3000/account/getAccount',
+    url: 'http://192.168.1.9:3000/account/getAccount',
     data: null,
   })
     .then(res => {
